@@ -31,6 +31,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var resetButton: UIButton!
     @IBOutlet var displayTimeLabel: UILabel!
     @IBOutlet var displayMoneyLabel: UILabel!
+    @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
     var state = State.Init
 
@@ -48,6 +49,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         // Do any additional setup after loading the view.
         self.canDisplayBannerAds = true
         calculator.load()
+        self.populateValues()
         updateNumberOfPersons(calculator.numberOfPersons)
         updateCostPerHour(calculator.costPerHour)
         calculator.addObserver(self)
@@ -70,6 +72,21 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     func applicationWillTerminate(notification:NSNotification?) {
         calculator.save()
         println("ClockViewController.\(__FUNCTION__): \(notification) terminated.")
+    }
+
+    /**
+     * This function populates values for some controls. The values which are
+     * assigned for the fields will be displayed with localization format.
+     * from: http://rshankar.com/internationalization-and-localization-of-apps-in-xcode-6-and-swift/
+     */
+    private func populateValues() {
+        self.initCostLabel()
+    }
+    
+    private func initCostLabel() {
+        let numberFormatter = NSNumberFormatter()
+        self.costLabel.text = numberFormatter.currencySymbol! + " "
+            + NSLocalizedString("cost per hour", comment:"cost per hour")
     }
 
     override func didReceiveMemoryWarning() {
