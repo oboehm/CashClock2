@@ -86,7 +86,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     private func initCostLabel() {
         let numberFormatter = NSNumberFormatter()
         self.costLabel.text = numberFormatter.currencySymbol! + " "
-            + NSLocalizedString("cost per hour", comment:"cost per hour")
+            + NSLocalizedString("cost per hour", comment:"cost/h")
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,7 +143,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             break
         case .Started:              // "Stop" was pressed
             calculator.stopTimer()
-            startStopButton.setTitle("continue", forState: UIControlState.Normal)
+            startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
+                forState: UIControlState.Normal)
             startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
                 forState: UIControlState.Normal)
             enable(resetButton)
@@ -207,7 +208,10 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func updateElapsedMoney(money:Double) {
-        self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
+        var formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        self.displayMoneyLabel.text = formatter.stringFromNumber(money)
+        //self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
     }
     
     
