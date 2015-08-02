@@ -232,15 +232,21 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func endEditingMemberCount() {
+        var n = calculator.numberOfPersons
         textFieldMemberCount.endEditing(true)
-        var n = textFieldMemberCount.text.toInt()!
+        if !textFieldMemberCount.text.isEmpty {
+            n = textFieldMemberCount.text.toInt()!
+        }
         println("ClockViewController.\(__FUNCTION__): Member count is set to \(n).");
         updateNumberOfPersons(n)
     }
     
     private func endEditingCostPerHour() {
+        var n = calculator.costPerHour
         textFieldCostPerHour.endEditing(true)
-        var n = textFieldCostPerHour.text.toInt()!
+        if !textFieldCostPerHour.text.isEmpty {
+            n = textFieldCostPerHour.text.toInt()!
+        }
         println("ClockViewController.\(__FUNCTION__): Cost per hour is set to \(n).");
         updateCostPerHour(n)
     }
