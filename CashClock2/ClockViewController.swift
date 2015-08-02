@@ -172,11 +172,13 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     func resetStartButton() {
-        startStopButton.setTitle("start", forState: UIControlState.Normal)
+        startStopButton.setTitle(NSLocalizedString("start", comment:"start"),
+            forState: UIControlState.Normal)
     }
     
     func showStopButton() {
-        startStopButton.setTitle("stop", forState: UIControlState.Normal)
+        startStopButton.setTitle(NSLocalizedString("stop", comment:"stop"),
+            forState: UIControlState.Normal)
         startStopButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         disable(resetButton)
         state = State.Started
