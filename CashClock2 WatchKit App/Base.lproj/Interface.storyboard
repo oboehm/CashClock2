@@ -23,6 +23,7 @@
                     </items>
                     <connections>
                         <outlet property="moneyLabel" destination="Zv7-5n-TUs" id="OhL-2z-jgp"/>
+                        <outlet property="startButton" destination="z1p-dk-hwn" id="Bb1-yf-Ihz"/>
                         <outlet property="watchTimer" destination="vkW-ns-OJj" id="HFS-Ab-ctf"/>
                     </connections>
                 </controller>

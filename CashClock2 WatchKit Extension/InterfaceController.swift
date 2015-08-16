@@ -14,6 +14,8 @@ class InterfaceController: WKInterfaceController {
 
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
+    @IBOutlet weak var startButton: WKInterfaceButton!
+    var started = false
 
     /**
      * This method is called if start / stop button will be pressed on the
@@ -21,8 +23,15 @@ class InterfaceController: WKInterfaceController {
      */
     @IBAction func buttonTapped() {
         println("InterfaceController.\(__FUNCTION__): button was tapped.")
-        watchTimer.setDate(NSDate(timeIntervalSinceNow: 0))
-        watchTimer.start()
+        if (started) {
+            watchTimer.stop()
+            startButton.setTitle("Start")
+        } else {
+            watchTimer.setDate(NSDate(timeIntervalSinceNow: 0))
+            watchTimer.start()
+            startButton.setTitle("Stop")
+        }
+        started = !started
     }
     
     override func awakeWithContext(context: AnyObject?) {
