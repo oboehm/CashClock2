@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  CashClock2
+
+  Created by oliver on 07.05.15.
+  Copyright (c) 2015 Oliver Böhm. All rights reserved.
+*/
+
+/* continue */
+"continue" = "cont";
+
+/* cost / hour */
+"cost per hour" = "cost / h";
+
+/* start */
+"start" = "start";
+
+/* stop */
+"stop" = "stop";

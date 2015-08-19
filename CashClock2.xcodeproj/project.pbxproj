@@ -15,6 +15,9 @@
 		A76774FE1ABB71CA00A75265 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A76774FC1ABB71CA00A75265 /* LaunchScreen.xib */; };
 		A78AE3131AC451FE00D4CE06 /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78AE3121AC451FE00D4CE06 /* ClockViewController.swift */; };
 		A7A030F71AEECDEE002555AB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A030F61AEECDEE002555AB /* iAd.framework */; };
+		A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */; };
+		A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */; };
+		A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C7340C1AFC02DC005C9DCE /* Localizable.strings */; };
 		A7FDC3041ACAFE9D00F33C19 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,12 @@
 		A76775081ABB71CB00A75265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A78AE3121AC451FE00D4CE06 /* ClockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
 		A7A030F61AEECDEE002555AB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		A7C733EE1AFBEE6E005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		A7C733EF1AFBEE6E005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A7C733F31AFBF1B3005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A7C733F81AFBF1B3005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A7C7340B1AFC02DC005C9DCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7C7340D1AFC02E2005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +74,7 @@
 		A76774E51ABB71CA00A75265 = {
 			isa = PBXGroup;
 			children = (
+				A7C7340C1AFC02DC005C9DCE /* Localizable.strings */,
 				A7A030F61AEECDEE002555AB /* iAd.framework */,
 				A76774F01ABB71CA00A75265 /* CashClock2 */,
 				A76775061ABB71CB00A75265 /* CashClock2Tests */,
@@ -98,6 +108,7 @@
 		A76774F11ABB71CA00A75265 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */,
 				A76774F21ABB71CA00A75265 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -115,6 +126,7 @@
 		A76775071ABB71CB00A75265 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */,
 				A76775081ABB71CB00A75265 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -184,6 +196,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = A76774E51ABB71CA00A75265;
 			productRefGroup = A76774EF1ABB71CA00A75265 /* Products */;
@@ -201,7 +214,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */,
 				A76774F91ABB71CA00A75265 /* Main.storyboard in Resources */,
+				A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */,
 				A76774FE1ABB71CA00A75265 /* LaunchScreen.xib in Resources */,
 				A76774FB1ABB71CA00A75265 /* Images.xcassets in Resources */,
 			);
@@ -211,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +267,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A76774F81ABB71CA00A75265 /* Base */,
+				A7C733EE1AFBEE6E005C9DCE /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -259,8 +276,34 @@
 			isa = PBXVariantGroup;
 			children = (
 				A76774FD1ABB71CA00A75265 /* Base */,
+				A7C733EF1AFBEE6E005C9DCE /* de */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C733F31AFBF1B3005C9DCE /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C733F81AFBF1B3005C9DCE /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A7C7340C1AFC02DC005C9DCE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C7340B1AFC02DC005C9DCE /* en */,
+				A7C7340D1AFC02E2005C9DCE /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

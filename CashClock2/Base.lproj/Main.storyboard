@@ -71,16 +71,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0,000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2VV-TR-zW2">
-                                <rect key="frame" x="159" y="28" width="282" height="64"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="diS-Bf-ojj"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="52"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ cost / h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoX-io-TyU">
                                 <rect key="frame" x="239" y="286" width="91" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -102,6 +92,16 @@
                                     <action selector="clickStartStop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wlj-ca-ugt"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0,000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2VV-TR-zW2">
+                                <rect key="frame" x="159" y="28" width="282" height="64"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="diS-Bf-ojj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="52"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -145,6 +145,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="costLabel" destination="XoX-io-TyU" id="zOp-Jp-6fU"/>
                         <outlet property="displayMoneyLabel" destination="2VV-TR-zW2" id="H7J-yn-HGL"/>
                         <outlet property="displayTimeLabel" destination="JAi-cH-6n1" id="PJO-e7-Q7B"/>
                         <outlet property="resetButton" destination="hOQ-Ra-TI8" id="MNH-7A-2fs"/>

@@ -31,6 +31,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var resetButton: UIButton!
     @IBOutlet var displayTimeLabel: UILabel!
     @IBOutlet var displayMoneyLabel: UILabel!
+    @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
     var state = State.Init
 
@@ -48,6 +49,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         // Do any additional setup after loading the view.
         self.canDisplayBannerAds = true
         calculator.load()
+        self.populateValues()
         updateNumberOfPersons(calculator.numberOfPersons)
         updateCostPerHour(calculator.costPerHour)
         calculator.addObserver(self)
@@ -70,6 +72,21 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     func applicationWillTerminate(notification:NSNotification?) {
         calculator.save()
         println("ClockViewController.\(__FUNCTION__): \(notification) terminated.")
+    }
+
+    /**
+     * This function populates values for some controls. The values which are
+     * assigned for the fields will be displayed with localization format.
+     * from: http://rshankar.com/internationalization-and-localization-of-apps-in-xcode-6-and-swift/
+     */
+    private func populateValues() {
+        self.initCostLabel()
+    }
+    
+    private func initCostLabel() {
+        let numberFormatter = NSNumberFormatter()
+        self.costLabel.text = numberFormatter.currencySymbol! + " "
+            + NSLocalizedString("cost per hour", comment:"cost/h")
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,7 +143,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             break
         case .Started:              // "Stop" was pressed
             calculator.stopTimer()
-            startStopButton.setTitle("continue", forState: UIControlState.Normal)
+            startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
+                forState: UIControlState.Normal)
             startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
                 forState: UIControlState.Normal)
             enable(resetButton)
@@ -154,11 +172,13 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     func resetStartButton() {
-        startStopButton.setTitle("start", forState: UIControlState.Normal)
+        startStopButton.setTitle(NSLocalizedString("start", comment:"start"),
+            forState: UIControlState.Normal)
     }
     
     func showStopButton() {
-        startStopButton.setTitle("stop", forState: UIControlState.Normal)
+        startStopButton.setTitle(NSLocalizedString("stop", comment:"stop"),
+            forState: UIControlState.Normal)
         startStopButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         disable(resetButton)
         state = State.Started
@@ -190,7 +210,10 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func updateElapsedMoney(money:Double) {
-        self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
+        var formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        self.displayMoneyLabel.text = formatter.stringFromNumber(money)
+        //self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
     }
     
     
@@ -209,15 +232,21 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func endEditingMemberCount() {
+        var n = calculator.numberOfPersons
         textFieldMemberCount.endEditing(true)
-        var n = textFieldMemberCount.text.toInt()!
+        if !textFieldMemberCount.text.isEmpty {
+            n = textFieldMemberCount.text.toInt()!
+        }
         println("ClockViewController.\(__FUNCTION__): Member count is set to \(n).");
         updateNumberOfPersons(n)
     }
     
     private func endEditingCostPerHour() {
+        var n = calculator.costPerHour
         textFieldCostPerHour.endEditing(true)
-        var n = textFieldCostPerHour.text.toInt()!
+        if !textFieldCostPerHour.text.isEmpty {
+            n = textFieldCostPerHour.text.toInt()!
+        }
         println("ClockViewController.\(__FUNCTION__): Cost per hour is set to \(n).");
         updateCostPerHour(n)
     }
