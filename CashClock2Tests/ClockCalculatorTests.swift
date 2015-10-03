@@ -1,9 +1,22 @@
 //
-//  ClockCalculatorTests.swift
-//  CashClock2
+//  Copyright (c) 2015 Oliver Boehm. All rights reserved.
 //
-//  Created by oliver on 03.04.15.
-//  Copyright (c) 2015 Oliver Böhm. All rights reserved.
+//  This file is part of CashClock2.
+//
+//  CashClock2 is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  CashClock2 is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with CashClock2. If not, see <http://www.gnu.org/licenses/>.
+//
+//  (c)reated by oliver on 03.04.15 (ob@cashclock.de)
 //
 
 import UIKit
@@ -24,7 +37,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         NSUserDefaults.standardUserDefaults().removeObjectForKey("CashClock")
-        println("ClockCalculatorTests.\(__FUNCTION__): test data deleted.")
+        print("ClockCalculatorTests.\(__FUNCTION__): test data deleted.")
         super.tearDown()
     }
 
@@ -51,8 +64,8 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         // This is an example of a performance test case.
         self.measureBlock() {
             self.calculator.startTimer()
-            var elapsedTime = self.calculator.elapsedTime
-            println("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
+            let elapsedTime = self.calculator.elapsedTime
+            print("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
             XCTAssert(elapsedTime >= 0, "elapsedTime \(elapsedTime) is to small")
             XCTAssert(elapsedTime < 1000, "elapsedTime \(elapsedTime) is to big")
         }
@@ -68,7 +81,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.startTimer()
         usleep(200000)
         calculator.stopTimer()
-        println("ClockCalculatorTests.\(__FUNCTION__): costs = \(calculator.getMoney())"
+        print("ClockCalculatorTests.\(__FUNCTION__): costs = \(calculator.getMoney())"
             + " for \(calculator.getTime()) seconds")
         XCTAssertEqual(calculator.getMoney(), calculator.getTime(), "calculation is wrong")
     }
@@ -78,11 +91,11 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
      * by a timer inside the ClockCalculator class.
      */
     func testNotifications() {
-        var i = calculator.addObserver(self)
+        let i = calculator.addObserver(self)
         calculator.startTimer()
         usleep(310000)
         calculator.stopTimer()
-        println("ClockCalculatorTests.\(__FUNCTION__): \(self) was updated \(updated) time(s).")
+        print("ClockCalculatorTests.\(__FUNCTION__): \(self) was updated \(updated) time(s).")
         calculator.removeObserver(i)
         XCTAssert(updated > 0, "update(..) was not called")
     }

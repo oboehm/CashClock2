@@ -1,9 +1,22 @@
 //
-//  ClockCalculatorModel.swift
-//  CashClock2
+//  Copyright (c) 2015 Oliver Boehm. All rights reserved.
 //
-//  Created by oliver on 19.03.15.
-//  Copyright (c) 2015 Oliver Böhm. All rights reserved.
+//  This file is part of CashClock2.
+//
+//  CashClock2 is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  CashClock2 is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with CashClock2. If not, see <http://www.gnu.org/licenses/>.
+//
+//	(c)reated by oliver on 19.03.15 (ob@cashclock.de)
 //
 
 import Foundation
@@ -40,7 +53,7 @@ class ClockCalculator:NSObject, NSCoding {
     
     func addObserver(observer:ClockObserver) -> Int {
         self.observers.append(observer)
-        println("ClockCalculator.\(__FUNCTION__): \(observer) is added as \(observers.count) observer.")
+        print("ClockCalculator.\(__FUNCTION__): \(observer) is added as \(observers.count) observer.")
         return self.observers.count - 1
     }
     
@@ -57,7 +70,7 @@ class ClockCalculator:NSObject, NSCoding {
         timer?.invalidate()
         timer = nil
         updateTimeAndMoney()
-        println("ClockCalculator.\(__FUNCTION__): timer is stopped.")
+        print("ClockCalculator.\(__FUNCTION__): timer is stopped.")
     }
     
     func continueTimer() {
@@ -65,13 +78,13 @@ class ClockCalculator:NSObject, NSCoding {
         currentTime = startTime
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
             selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
-        println("ClockCalculator.\(__FUNCTION__): timer is started (again).")
+        print("ClockCalculator.\(__FUNCTION__): timer is started (again).")
     }
     
     func resetTimer() {
         elapsedTime = 0
         totalCost = 0.0
-        println("ClockCalculator.\(__FUNCTION__): timer is resetted.")
+        print("ClockCalculator.\(__FUNCTION__): timer is resetted.")
     }
     
     /**
@@ -118,7 +131,7 @@ class ClockCalculator:NSObject, NSCoding {
      * This is the required init protocol.
      * see http://nshipster.com/nscoding/
      */
-    required convenience init(coder decoder: NSCoder) {
+    required convenience init?(coder decoder: NSCoder) {
         self.init()
         self.costPerHour = decoder.decodeIntegerForKey("costPerHour")
         self.numberOfPersons = decoder.decodeIntegerForKey("numberOfPersons")
@@ -139,7 +152,7 @@ class ClockCalculator:NSObject, NSCoding {
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "CashClock")
-        println("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
+        print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
     }
     
     /**
@@ -152,12 +165,12 @@ class ClockCalculator:NSObject, NSCoding {
             if let clockData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? ClockCalculator {
                 self.costPerHour = clockData.costPerHour;
                 self.numberOfPersons = clockData.numberOfPersons;
-                println("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
+                print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
             } else {
-                println("ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
+                print("ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
             }
         } else {
-            println("ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
+            print("ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
         }
     }
 

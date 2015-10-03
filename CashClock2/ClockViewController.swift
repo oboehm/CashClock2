@@ -1,15 +1,28 @@
 //
-//  ClockViewController.swift
-//  CashClock2
+//  Copyright (c) 2015 Oliver Boehm. All rights reserved.
 //
-//  Created by oliver on 26.03.15.
-//  Copyright (c) 2015 Oliver Böhm. All rights reserved.
+//  This file is part of CashClock2.
+//
+//  CashClock2 is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  CashClock2 is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with CashClock2. If not, see <http://www.gnu.org/licenses/>.
+//
+//  (c)reated 26.03.15 by oliver (ob@cashclock.de)
 //
 
 import UIKit
 import iAd
 
-enum State : String, Printable {
+enum State : String, CustomStringConvertible {
     case Init = "initialized";
     case Started = "started";
     case Stopped = "stopped";
@@ -61,7 +74,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * from: http://stackoverflow.com/questions/2432536/applicationwillterminate-delegate-or-view
      */
     private func registerForApplicationWillTerminate() {
-        var app = UIApplication.sharedApplication()
+        let app = UIApplication.sharedApplication()
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "applicationWillTerminate:",
@@ -71,7 +84,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     
     func applicationWillTerminate(notification:NSNotification?) {
         calculator.save()
-        println("ClockViewController.\(__FUNCTION__): \(notification) terminated.")
+        print("ClockViewController.\(__FUNCTION__): \(notification) terminated.")
     }
 
     /**
@@ -110,20 +123,20 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     * http://www.ioslearner.com/uistepper-tutorial-example-sample-cod/
     */
     @IBAction func clickNumberOfPersonStepper(sender: UIStepper) {
-        var value = sender.value
+        let value = sender.value
         calculator.numberOfPersons = Int(value)
         updateNumberOfPersons(Int(value))
     }
     
     private func updateNumberOfPersons(value: Int) {
-        println("ClockViewController.\(__FUNCTION__): number of persons is set to \(value)")
+        print("ClockViewController.\(__FUNCTION__): number of persons is set to \(value)")
         calculator.numberOfPersons = value
         stepperMemberCount.value = Double(calculator.numberOfPersons)
         textFieldMemberCount.text = String(calculator.numberOfPersons)
     }
     
     private func updateCostPerHour(value: Int) {
-        println("ClockViewController.\(__FUNCTION__): cost per hour is set to \(value)")
+        print("ClockViewController.\(__FUNCTION__): cost per hour is set to \(value)")
         calculator.costPerHour = value
         textFieldCostPerHour.text = String(value)
     }
@@ -135,7 +148,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     * http://rshankar.com/simple-stopwatch-app-in-swift/ .
     */
     @IBAction func clickStartStop(sender: AnyObject) {
-        println("ClockViewController.\(__FUNCTION__): start/stop button pressed in state \(state)")
+        print("ClockViewController.\(__FUNCTION__): start/stop button pressed in state \(state)")
         switch (state) {
         case .Init:                 // "Start" was pressed
             calculator.startTimer()
@@ -153,9 +166,6 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         case .Stopped:              // "continue" / "weiter" was pressed
             calculator.continueTimer()
             showStopButton()
-            break
-        default:
-            println("ClockViewController.\(__FUNCTION__): unknown state \(state) reached.")
             break
         }
     }
@@ -203,14 +213,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
 
     private func updateElapsedTime(time:Int) {
-        var seconds = time % 60
-        var minutes = (time / 60) % 60
-        var hours = time / 3600
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        let hours = time / 3600
         self.displayTimeLabel.text = NSString(format: "%.2d:%.2d:%.2d", hours, minutes, seconds) as String
     }
     
     private func updateElapsedMoney(money:Double) {
-        var formatter = NSNumberFormatter()
+        let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         self.displayMoneyLabel.text = formatter.stringFromNumber(money)
         //self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
@@ -225,8 +235,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * method from UITextViewDelegate.
      * see http://theapplady.net/workshop-9-hide-the-devices-keyboard/
      */
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        println("ClockViewController.\(__FUNCTION__): User tapped in the background.");
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        print("ClockViewController.\(__FUNCTION__): User tapped in the background.");
         endEditingMemberCount()
         endEditingCostPerHour()
     }
@@ -234,20 +244,20 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     private func endEditingMemberCount() {
         var n = calculator.numberOfPersons
         textFieldMemberCount.endEditing(true)
-        if !textFieldMemberCount.text.isEmpty {
-            n = textFieldMemberCount.text.toInt()!
+        if !textFieldMemberCount.text!.isEmpty {
+            n = Int(textFieldMemberCount.text!)!
         }
-        println("ClockViewController.\(__FUNCTION__): Member count is set to \(n).");
+        print("ClockViewController.\(__FUNCTION__): Member count is set to \(n).");
         updateNumberOfPersons(n)
     }
     
     private func endEditingCostPerHour() {
         var n = calculator.costPerHour
         textFieldCostPerHour.endEditing(true)
-        if !textFieldCostPerHour.text.isEmpty {
-            n = textFieldCostPerHour.text.toInt()!
+        if !textFieldCostPerHour.text!.isEmpty {
+            n = Int(textFieldCostPerHour.text!)!
         }
-        println("ClockViewController.\(__FUNCTION__): Cost per hour is set to \(n).");
+        print("ClockViewController.\(__FUNCTION__): Cost per hour is set to \(n).");
         updateCostPerHour(n)
     }
     
@@ -257,7 +267,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func enterTextField(textField: UITextField) {
-        println("ClockViewController.\(__FUNCTION__): text field \(textField) is entered.");
+        print("ClockViewController.\(__FUNCTION__): text field \(textField) is entered.");
         self.animateTextField(textField, distance: -60)
     }
 
@@ -267,7 +277,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func leaveTextField(textField: UITextField) {
-        println("ClockViewController.\(__FUNCTION__): text field \(textField) is left.");
+        print("ClockViewController.\(__FUNCTION__): text field \(textField) is left.");
         self.animateTextField(textField, distance: 60)
     }
 
