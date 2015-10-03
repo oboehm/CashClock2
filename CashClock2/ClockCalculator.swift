@@ -17,7 +17,6 @@
 //  along with CashClock2. If not, see <http://www.gnu.org/licenses/>.
 //
 //	(c)reated by oliver on 19.03.15 (ob@cashclock.de)
-//
 
 import Foundation
 
