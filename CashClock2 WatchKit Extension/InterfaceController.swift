@@ -22,7 +22,7 @@ class InterfaceController: WKInterfaceController {
      * watch.
      */
     @IBAction func buttonTapped() {
-        println("InterfaceController.\(__FUNCTION__): button was tapped.")
+        print("InterfaceController.\(__FUNCTION__): button was tapped.")
         if (started) {
             watchTimer.stop()
             startButton.setTitle("Start")
@@ -38,19 +38,19 @@ class InterfaceController: WKInterfaceController {
         super.awakeWithContext(context)
         
         // Configure interface objects here.
-        println("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
+        print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        println("InterfaceController.\(__FUNCTION__): controller is visible.")
+        print("InterfaceController.\(__FUNCTION__): controller is visible.")
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-        println("InterfaceController.\(__FUNCTION__): controller is no longer visible.")
+        print("InterfaceController.\(__FUNCTION__): controller is no longer visible.")
     }
 
 }
