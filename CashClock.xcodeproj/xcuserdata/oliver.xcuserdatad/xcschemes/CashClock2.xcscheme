@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
-               BuildableName = "CashClock2.app"
-               BlueprintName = "CashClock2"
-               ReferencedContainer = "container:CashClock2.xcodeproj">
+               BuildableName = "CashClock.app"
+               BlueprintName = "CashClock"
+               ReferencedContainer = "container:CashClock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A76775021ABB71CB00A75265"
-               BuildableName = "CashClock2Tests.xctest"
-               BlueprintName = "CashClock2Tests"
-               ReferencedContainer = "container:CashClock2.xcodeproj">
+               BuildableName = "CashClock.xctest"
+               BlueprintName = "CashClockTests"
+               ReferencedContainer = "container:CashClock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A76775021ABB71CB00A75265"
-               BuildableName = "CashClock2Tests.xctest"
-               BlueprintName = "CashClock2Tests"
-               ReferencedContainer = "container:CashClock2.xcodeproj">
+               BuildableName = "CashClock.xctest"
+               BlueprintName = "CashClockTests"
+               ReferencedContainer = "container:CashClock.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
-            BuildableName = "CashClock2.app"
-            BlueprintName = "CashClock2"
-            ReferencedContainer = "container:CashClock2.xcodeproj">
+            BuildableName = "CashClock.app"
+            BlueprintName = "CashClock"
+            ReferencedContainer = "container:CashClock.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
-            BuildableName = "CashClock2.app"
-            BlueprintName = "CashClock2"
-            ReferencedContainer = "container:CashClock2.xcodeproj">
+            BuildableName = "CashClock.app"
+            BlueprintName = "CashClock"
+            ReferencedContainer = "container:CashClock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -101,9 +101,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
-            BuildableName = "CashClock2.app"
-            BlueprintName = "CashClock2"
-            ReferencedContainer = "container:CashClock2.xcodeproj">
+            BuildableName = "CashClock.app"
+            BlueprintName = "CashClock"
+            ReferencedContainer = "container:CashClock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
