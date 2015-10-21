@@ -1,9 +1,9 @@
 //
 //  InterfaceController.swift
-//  CashClock2 WatchKit Extension
+//  CashWatch Extension
 //
-//  Created by oliver on 05.05.15.
-//  Copyright (c) 2015 Oliver Böhm. All rights reserved.
+//  Created by oliver on 11.10.15.
+//  Copyright © 2015 Oliver Boehm. All rights reserved.
 //
 
 import WatchKit
@@ -16,11 +16,11 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
     var started = false
-
+    
     /**
-     * This method is called if start / stop button will be pressed on the
-     * watch.
-     */
+    * This method is called if start / stop button will be pressed on the
+    * watch.
+    */
     @IBAction func buttonTapped() {
         print("InterfaceController.\(__FUNCTION__): button was tapped.")
         if (started) {
@@ -40,13 +40,13 @@ class InterfaceController: WKInterfaceController {
         // Configure interface objects here.
         print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
     }
-
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         print("InterfaceController.\(__FUNCTION__): controller is visible.")
     }
-
+    
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
