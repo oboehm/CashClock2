@@ -10,11 +10,12 @@ import WatchKit
 import Foundation
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, CashObserver {
 
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
+    var calculator = CashCalculator()
     var started = false
     
     /**
@@ -25,10 +26,12 @@ class InterfaceController: WKInterfaceController {
         print("InterfaceController.\(__FUNCTION__): button was tapped.")
         if (started) {
             watchTimer.stop()
+            calculator.stopTimer()
             startButton.setTitle("Start")
         } else {
             watchTimer.setDate(NSDate(timeIntervalSinceNow: 0))
             watchTimer.start()
+            calculator.startTimer()
             startButton.setTitle("Stop")
         }
         started = !started
@@ -38,6 +41,7 @@ class InterfaceController: WKInterfaceController {
         super.awakeWithContext(context)
         
         // Configure interface objects here.
+        calculator.addObserver(self)
         print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
     }
     
@@ -51,6 +55,13 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
         print("InterfaceController.\(__FUNCTION__): controller is no longer visible.")
+    }
+
+   /**
+    * This method will be called by the observed ClockCalculator.
+    */
+    func update(time:NSTimeInterval, money:Double) {
+        print("tick...")
     }
 
 }

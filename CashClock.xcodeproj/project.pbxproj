@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A71F23141ACF23550019C6F7 /* ClockCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */; };
 		A71F23151ACF25DC0019C6F7 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
+		A74932721BD8293000E52A2A /* CashCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74932711BD8293000E52A2A /* CashCalculator.swift */; settings = {ASSET_TAGS = (); }; };
 		A76774F41ABB71CA00A75265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76774F31ABB71CA00A75265 /* AppDelegate.swift */; };
 		A76774F91ABB71CA00A75265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A76774F71ABB71CA00A75265 /* Main.storyboard */; };
 		A76774FB1ABB71CA00A75265 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76774FA1ABB71CA00A75265 /* Images.xcassets */; };
@@ -91,6 +92,7 @@
 
 /* Begin PBXFileReference section */
 		A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockCalculatorTests.swift; sourceTree = "<group>"; };
+		A74932711BD8293000E52A2A /* CashCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashCalculator.swift; sourceTree = "<group>"; };
 		A7625D071B7FB8F400B746D8 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		A76774EE1ABB71CA00A75265 /* CashClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A76774F21ABB71CA00A75265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				A7D7E1AA1BCAF4180099B4C1 /* Assets.xcassets */,
 				A7D7E1AC1BCAF4180099B4C1 /* Info.plist */,
 				A7D7E1A21BCAF4180099B4C1 /* Supporting Files */,
+				A74932711BD8293000E52A2A /* CashCalculator.swift */,
 			);
 			path = "CashWatch Extension";
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74932721BD8293000E52A2A /* CashCalculator.swift in Sources */,
 				A7D7E1A91BCAF4180099B4C1 /* NotificationController.swift in Sources */,
 				A7D7E1A71BCAF4180099B4C1 /* ExtensionDelegate.swift in Sources */,
 				A7D7E1A51BCAF4180099B4C1 /* InterfaceController.swift in Sources */,
