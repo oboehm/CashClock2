@@ -58,10 +58,17 @@ class InterfaceController: WKInterfaceController, CashObserver {
     }
 
    /**
-    * This method will be called by the observed ClockCalculator.
+    * This method will be called by the observed CashCalculator.
     */
     func update(time:NSTimeInterval, money:Double) {
         print("tick...")
+        updateElapsedMoney(money)
+    }
+
+    private func updateElapsedMoney(money:Double) {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        self.moneyLabel.setText(formatter.stringFromNumber(money))
     }
 
 }
