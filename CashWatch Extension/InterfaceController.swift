@@ -10,12 +10,12 @@ import WatchKit
 import Foundation
 
 
-class InterfaceController: WKInterfaceController, CashObserver {
+class InterfaceController: WKInterfaceController, ClockObserver {
 
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
-    var calculator = CashCalculator()
+    var calculator = ClockCalculator()
     var started = false
     
     /**
@@ -61,14 +61,23 @@ class InterfaceController: WKInterfaceController, CashObserver {
     * This method will be called by the observed CashCalculator.
     */
     func update(time:NSTimeInterval, money:Double) {
-        print("tick...")
+        //print("tick...")
         updateElapsedMoney(money)
     }
 
     private func updateElapsedMoney(money:Double) {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
-        self.moneyLabel.setText(formatter.stringFromNumber(money))
+        
+        let systemFont = UIFont.monospacedDigitSystemFontOfSize(30, weight: UIFontWeightRegular)
+//        let fontDescriptor = systemFont.fontDescriptor().fontDescriptorByAddingAttributes(
+//            [UIFontDescriptorFeatureSettingsAttribute:[[UIFontFeatureTypeIdentifierKey: UIFont],
+//                [UIFontFeatureSelectorIdentifierKey: 0]]])
+//        let font = UIFont(descriptor: fontDescriptor, size: 30)
+        if let string = formatter.stringFromNumber(money) {
+            let attributedString = NSAttributedString(string: string, attributes: [NSFontAttributeName: systemFont])
+            self.moneyLabel.setAttributedText(attributedString)
+        }
     }
 
 }

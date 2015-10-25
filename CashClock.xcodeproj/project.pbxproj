@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		A71F23141ACF23550019C6F7 /* ClockCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */; };
 		A71F23151ACF25DC0019C6F7 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
-		A74932721BD8293000E52A2A /* CashCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74932711BD8293000E52A2A /* CashCalculator.swift */; settings = {ASSET_TAGS = (); }; };
+		A74932721BD8293000E52A2A /* CashCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74932711BD8293000E52A2A /* CashCalculator.swift */; };
 		A76774F41ABB71CA00A75265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76774F31ABB71CA00A75265 /* AppDelegate.swift */; };
 		A76774F91ABB71CA00A75265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A76774F71ABB71CA00A75265 /* Main.storyboard */; };
 		A76774FB1ABB71CA00A75265 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76774FA1ABB71CA00A75265 /* Images.xcassets */; };
 		A76774FE1ABB71CA00A75265 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A76774FC1ABB71CA00A75265 /* LaunchScreen.xib */; };
 		A78AE3131AC451FE00D4CE06 /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78AE3121AC451FE00D4CE06 /* ClockViewController.swift */; };
 		A7A030F71AEECDEE002555AB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A030F61AEECDEE002555AB /* iAd.framework */; };
+		A7AC17381BDCE05E00660503 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 		A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */; };
 		A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */; };
 		A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C7340C1AFC02DC005C9DCE /* Localizable.strings */; };
@@ -27,7 +28,7 @@
 		A7D7E1A91BCAF4180099B4C1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D7E1A81BCAF4180099B4C1 /* NotificationController.swift */; };
 		A7D7E1AB1BCAF4180099B4C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7D7E1AA1BCAF4180099B4C1 /* Assets.xcassets */; };
 		A7D7E1AF1BCAF4180099B4C1 /* CashWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A7D7E1911BCAF4180099B4C1 /* CashWatch.app */; };
-		A7D7E1B71BCAFD030099B4C1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D7E1A81BCAF4180099B4C1 /* NotificationController.swift */; settings = {ASSET_TAGS = (); }; };
+		A7D7E1B71BCAFD030099B4C1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D7E1A81BCAF4180099B4C1 /* NotificationController.swift */; };
 		A7FDC3041ACAFE9D00F33C19 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 /* End PBXBuildFile section */
 
@@ -440,6 +441,7 @@
 			files = (
 				A74932721BD8293000E52A2A /* CashCalculator.swift in Sources */,
 				A7D7E1A91BCAF4180099B4C1 /* NotificationController.swift in Sources */,
+				A7AC17381BDCE05E00660503 /* ClockCalculator.swift in Sources */,
 				A7D7E1A71BCAF4180099B4C1 /* ExtensionDelegate.swift in Sources */,
 				A7D7E1A51BCAF4180099B4C1 /* InterfaceController.swift in Sources */,
 			);
