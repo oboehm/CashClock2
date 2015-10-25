@@ -41,6 +41,7 @@ class InterfaceController: WKInterfaceController, ClockObserver {
         super.awakeWithContext(context)
         
         // Configure interface objects here.
+        updateElapsedMoney(calculator.getMoney())
         calculator.addObserver(self)
         print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
     }
@@ -61,19 +62,17 @@ class InterfaceController: WKInterfaceController, ClockObserver {
     * This method will be called by the observed CashCalculator.
     */
     func update(time:NSTimeInterval, money:Double) {
-        //print("tick...")
         updateElapsedMoney(money)
     }
 
+    /**
+     * We do not only update the text for the money labal we also set the font
+     * to monospaced and the correct locale / currency.
+     */
     private func updateElapsedMoney(money:Double) {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
-        
         let systemFont = UIFont.monospacedDigitSystemFontOfSize(30, weight: UIFontWeightRegular)
-//        let fontDescriptor = systemFont.fontDescriptor().fontDescriptorByAddingAttributes(
-//            [UIFontDescriptorFeatureSettingsAttribute:[[UIFontFeatureTypeIdentifierKey: UIFont],
-//                [UIFontFeatureSelectorIdentifierKey: 0]]])
-//        let font = UIFont(descriptor: fontDescriptor, size: 30)
         if let string = formatter.stringFromNumber(money) {
             let attributedString = NSAttributedString(string: string, attributes: [NSFontAttributeName: systemFont])
             self.moneyLabel.setAttributedText(attributedString)
