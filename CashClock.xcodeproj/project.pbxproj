@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A71F23141ACF23550019C6F7 /* ClockCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */; };
 		A71F23151ACF25DC0019C6F7 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
+		A73DF9081BE81095007FBD5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7D7E1AA1BCAF4180099B4C1 /* Assets.xcassets */; };
 		A76774F41ABB71CA00A75265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76774F31ABB71CA00A75265 /* AppDelegate.swift */; };
 		A76774F91ABB71CA00A75265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A76774F71ABB71CA00A75265 /* Main.storyboard */; };
 		A76774FB1ABB71CA00A75265 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76774FA1ABB71CA00A75265 /* Images.xcassets */; };
@@ -397,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D7E1971BCAF4180099B4C1 /* Assets.xcassets in Resources */,
+				A73DF9081BE81095007FBD5F /* Assets.xcassets in Resources */,
 				A7D7E1951BCAF4180099B4C1 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

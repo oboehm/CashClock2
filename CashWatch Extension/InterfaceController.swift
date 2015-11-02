@@ -72,7 +72,7 @@ class InterfaceController: WKInterfaceController, ClockObserver {
     private func updateElapsedMoney(money:Double) {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
-        let systemFont = UIFont.monospacedDigitSystemFontOfSize(30, weight: UIFontWeightRegular)
+        let systemFont = UIFont.monospacedDigitSystemFontOfSize(32, weight: UIFontWeightRegular)
         if let string = formatter.stringFromNumber(money) {
             let attributedString = NSAttributedString(string: string, attributes: [NSFontAttributeName: systemFont])
             self.moneyLabel.setAttributedText(attributedString)

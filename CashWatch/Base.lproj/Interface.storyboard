@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9019"/>
@@ -11,9 +11,18 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="CashWatch" customModuleProvider="target">
                     <items>
                         <label width="136" height="39" alignment="center" text="$0.00" textAlignment="center" baselineAdjustment="alignCenters" id="a9l-Ci-rdi">
-                            <fontDescription key="font" type="system" pointSize="30"/>
+                            <fontDescription key="font" type="system" pointSize="32"/>
                         </label>
                         <timer alignment="center" id="lR5-jE-gLi"/>
+                        <group width="1" height="41" alignment="left" id="8Ef-7u-m2q">
+                            <items>
+                                <imageView width="40" height="40" alignment="left" verticalAlignment="bottom" image="People" contentMode="center" id="ACl-OB-aDe"/>
+                                <label width="50" height="40" alignment="right" verticalAlignment="bottom" text="x $40" textAlignment="center" id="FBa-Iu-xqx">
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                        </group>
                         <button width="1" alignment="center" verticalAlignment="bottom" title="Start" id="nG0-kD-YSX">
                             <fontDescription key="font" type="system" pointSize="16"/>
                             <connections>
