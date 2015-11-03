@@ -17,7 +17,7 @@
                         <group width="1" height="41" alignment="left" id="8Ef-7u-m2q">
                             <items>
                                 <imageView width="40" height="40" alignment="left" verticalAlignment="bottom" image="People" contentMode="center" id="ACl-OB-aDe"/>
-                                <label width="50" height="40" alignment="right" verticalAlignment="bottom" text="x $40" textAlignment="center" id="FBa-Iu-xqx">
+                                <label width="60" height="40" alignment="right" verticalAlignment="bottom" text="1 x $40" textAlignment="center" id="FBa-Iu-xqx">
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
@@ -32,6 +32,7 @@
                     </items>
                     <connections>
                         <outlet property="moneyLabel" destination="a9l-Ci-rdi" id="J4C-D6-nvk"/>
+                        <outlet property="personHourLabel" destination="FBa-Iu-xqx" id="Srx-UB-TRq"/>
                         <outlet property="startButton" destination="nG0-kD-YSX" id="86X-ro-hOM"/>
                         <outlet property="watchTimer" destination="lR5-jE-gLi" id="rI8-bc-I1l"/>
                     </connections>

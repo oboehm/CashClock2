@@ -15,6 +15,7 @@ class InterfaceController: WKInterfaceController, ClockObserver {
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
+    @IBOutlet weak var personHourLabel: WKInterfaceLabel!
     var calculator = ClockCalculator()
     var started = false
     
@@ -43,7 +44,15 @@ class InterfaceController: WKInterfaceController, ClockObserver {
         // Configure interface objects here.
         updateElapsedMoney(calculator.getMoney())
         calculator.addObserver(self)
+        setPersonHourLabel()
         print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
+    }
+    
+    private func setPersonHourLabel() {
+        let formatted = String(calculator.numberOfPersons) + " x "
+            + getMoneyFormatted(calculator.costPerHour, fractionDigits:0)
+        self.personHourLabel.setText(formatted)
+        print("InterfaceController.\(__FUNCTION__): label is set to '\(formatted)'.")
     }
     
     override func willActivate() {
@@ -70,13 +79,19 @@ class InterfaceController: WKInterfaceController, ClockObserver {
      * to monospaced and the correct locale / currency.
      */
     private func updateElapsedMoney(money:Double) {
+        let systemFont = UIFont.monospacedDigitSystemFontOfSize(32, weight: UIFontWeightRegular)
+        let moneyString = getMoneyFormatted(money, fractionDigits:2)
+        let attributedString = NSAttributedString(string: moneyString,
+            attributes: [NSFontAttributeName: systemFont])
+        self.moneyLabel.setAttributedText(attributedString)
+    }
+    
+    private func getMoneyFormatted(money:NSNumber, fractionDigits:Int) -> String {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
-        let systemFont = UIFont.monospacedDigitSystemFontOfSize(32, weight: UIFontWeightRegular)
-        if let string = formatter.stringFromNumber(money) {
-            let attributedString = NSAttributedString(string: string, attributes: [NSFontAttributeName: systemFont])
-            self.moneyLabel.setAttributedText(attributedString)
-        }
+        formatter.maximumFractionDigits = fractionDigits
+        let moneyFormatted = formatter.stringFromNumber(money)
+        return moneyFormatted!
     }
 
 }
