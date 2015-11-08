@@ -21,6 +21,7 @@
 
 import UIKit
 import iAd
+import WatchConnectivity
 
 enum State : String, CustomStringConvertible {
     case Init = "initialized";
@@ -126,6 +127,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let value = sender.value
         calculator.numberOfPersons = Int(value)
         updateNumberOfPersons(Int(value))
+        WCSession.defaultSession().transferUserInfo(["calc" : calculator])
+        print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
     }
     
     private func updateNumberOfPersons(value: Int) {

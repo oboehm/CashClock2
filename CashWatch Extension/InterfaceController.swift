@@ -8,9 +8,10 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
-class InterfaceController: WKInterfaceController, ClockObserver {
+class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelegate {
 
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
@@ -18,11 +19,13 @@ class InterfaceController: WKInterfaceController, ClockObserver {
     @IBOutlet weak var personHourLabel: WKInterfaceLabel!
     var calculator = ClockCalculator()
     var started = false
+    var session = WCSession?()
     
-    /**
+   /**
     * This method is called if start / stop button will be pressed on the
     * watch.
     */
+    // TODO set color (green / red)
     @IBAction func buttonTapped() {
         print("InterfaceController.\(__FUNCTION__): button was tapped.")
         if (started) {
@@ -58,6 +61,12 @@ class InterfaceController: WKInterfaceController, ClockObserver {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        if WCSession.isSupported() {
+            session = WCSession.defaultSession()
+            session?.delegate = self
+            session?.activateSession()
+            print("InterfaceController.\(__FUNCTION__): session \(session) is activated.")
+        }
         print("InterfaceController.\(__FUNCTION__): controller is visible.")
     }
     

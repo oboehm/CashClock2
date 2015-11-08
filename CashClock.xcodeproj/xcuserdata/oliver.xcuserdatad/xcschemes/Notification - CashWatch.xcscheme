@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0700"
-   version = "2.0">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
+               BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
                BuildableName = "CashWatch.app"
                BlueprintName = "CashWatch"
                ReferencedContainer = "container:CashClock.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A74402FA1BC9AD0000D6A6A8"
+               BlueprintIdentifier = "A7D7E19C1BCAF4180099B4C1"
                BuildableName = "CashWatch Extension.appex"
                BlueprintName = "CashWatch Extension"
                ReferencedContainer = "container:CashClock.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
+            BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
             BuildableName = "CashWatch.app"
             BlueprintName = "CashWatch"
             ReferencedContainer = "container:CashClock.xcodeproj">
@@ -73,36 +73,36 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      launchStyle = "0"
+      launchStyle = "1"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "8"
+      language = "de"
+      region = "DE"
       notificationPayloadFile = "CashWatch Extension/PushNotificationPayload.apns">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.carousel"
-         RemotePath = "/CashClock">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
-            BuildableName = "CashWatch.app"
-            BlueprintName = "CashWatch"
+            BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
+            BuildableName = "CashClock.app"
+            BlueprintName = "CashClock"
             ReferencedContainer = "container:CashClock.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
-            BuildableName = "CashWatch.app"
-            BlueprintName = "CashWatch"
-            ReferencedContainer = "container:CashClock.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "USERBREAK"
+            value = "1"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "NSDOLoggingEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -119,7 +119,7 @@
          RemotePath = "/CashClock">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
+            BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
             BuildableName = "CashWatch.app"
             BlueprintName = "CashWatch"
             ReferencedContainer = "container:CashClock.xcodeproj">
@@ -128,7 +128,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A74402EE1BC9AD0000D6A6A8"
+            BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
             BuildableName = "CashWatch.app"
             BlueprintName = "CashWatch"
             ReferencedContainer = "container:CashClock.xcodeproj">
