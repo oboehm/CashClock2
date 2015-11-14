@@ -82,16 +82,27 @@
       language = "de"
       region = "DE"
       notificationPayloadFile = "CashWatch Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.carousel"
+         RemotePath = "/CashClock">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A76774ED1ABB71CA00A75265"
-            BuildableName = "CashClock.app"
-            BlueprintName = "CashClock"
+            BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
+            BuildableName = "CashWatch.app"
+            BlueprintName = "CashWatch"
             ReferencedContainer = "container:CashClock.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A7D7E1901BCAF4180099B4C1"
+            BuildableName = "CashWatch.app"
+            BlueprintName = "CashWatch"
+            ReferencedContainer = "container:CashClock.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
          <AdditionalOption
             key = "USERBREAK"

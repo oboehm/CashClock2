@@ -50,6 +50,15 @@ class ClockCalculator:NSObject, NSCoding {
     var timer:NSTimer? = nil
     var observers:[ClockObserver] = []
     
+    /**
+     * To get a better string representation for logging we override the
+     * description function from the CustomStringConvertible protocoll.
+     */
+    override var description : String {
+        return String(numberOfPersons) + "x" + String(costPerHour) + "$x"
+            + String(Int(elapsedTime)) + "s=" + String(Int(totalCost)) + "$"
+    }
+    
     func addObserver(observer:ClockObserver) -> Int {
         self.observers.append(observer)
         print("ClockCalculator.\(__FUNCTION__): \(observer) is added as \(observers.count) observer.")

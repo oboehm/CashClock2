@@ -48,6 +48,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
     var state = State.Init
+    var connectivityHandler : ConnectivityHandler!
 
     /**
     * After the vew is loaded the used ClockCalculator is allocated and set up.
@@ -68,6 +69,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         updateCostPerHour(calculator.costPerHour)
         calculator.addObserver(self)
         self.registerForApplicationWillTerminate()
+        self.connectivityHandler = (UIApplication.sharedApplication().delegate as? AppDelegate)?.connectivityHandler
+        connectivityHandler.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
+        print("ClockViewController.\(__FUNCTION__): iPhone application loaded.")
     }
     
     /**
@@ -127,7 +131,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let value = sender.value
         calculator.numberOfPersons = Int(value)
         updateNumberOfPersons(Int(value))
-        WCSession.defaultSession().transferUserInfo(["calc" : calculator])
+        //let dict = ["calc" : calculator]
+        //WCSession.defaultSession().transferUserInfo(dict)
+        connectivityHandler.session.transferUserInfo(["calc" : calculator])
         print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
     }
     
@@ -171,6 +177,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             showStopButton()
             break
         }
+        print("ClockViewController.\(__FUNCTION__): sending \(calculator) to watch...")
+        connectivityHandler.session.transferUserInfo(["calc" : calculator])
     }
     
     @IBAction func clickReset(sender: AnyObject) {

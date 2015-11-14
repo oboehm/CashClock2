@@ -22,20 +22,66 @@
 import UIKit
 import WatchConnectivity
 
+class ConnectivityHandler : NSObject, WCSessionDelegate {
+    
+    var session = WCSession.defaultSession()
+    
+    var messages = [String]() {
+        // fire KVO-updates for Swift property
+        willSet { willChangeValueForKey("messages") }
+        didSet  { didChangeValueForKey("messages")  }
+    }
+    
+    override init() {
+        super.init()
+        session.delegate = self
+        session.activateSession()
+        print("ConnectivityHandler.\(__FUNCTION__): \(session) activated.")
+        print("ConnectivityHandler.\(__FUNCTION__): Paired: \(session.paired) / Installed: \(session.watchAppInstalled) / Reachable: \(session.reachable)")
+    }
+    
+    // MARK: - WCSessionDelegate
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        NSLog("didReceiveMessage: %@", message)
+        print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received with replyHander \(replyHandler).")
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received.")
+        let msg = message["msg"]!
+        self.messages.append("Message \(msg)")
+    }
+    
+    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+        let msg = applicationContext["msg"]!
+        self.messages.append("AppContext \(msg)")
+    }
+    
+    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+        print("ConnectivityHandler.\(__FUNCTION__): userInfo '\(userInfo)' received.")
+        let msg = userInfo["msg"]!
+        self.messages.append("UserInfo \(msg)")
+    }
+    
+}
+
+
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var session: WCSession!
-
+    var connectivityHandler : ConnectivityHandler?
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         print("AppDelegate.\(__FUNCTION__): \(application) launched.")
-        session = WCSession.defaultSession()
-        session.delegate = self
         if WCSession.isSupported() {
-            session.activateSession()
-            print("AppDelegate.\(__FUNCTION__): \(session) activated.")
+            self.connectivityHandler = ConnectivityHandler()
+            print("AppDelegate.\(__FUNCTION__): WCSession supported.")
+        } else {
+            print("AppDelegate.\(__FUNCTION__): WCSession not supported (e.g. on iPad).")
         }
         return true
     }

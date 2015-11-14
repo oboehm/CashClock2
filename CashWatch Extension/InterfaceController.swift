@@ -39,6 +39,14 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             startButton.setTitle("Stop")
         }
         started = !started
+        session?.sendMessage(["start" : started],
+            replyHandler: { (response) in
+                print("Reply: \(response)")
+            }, errorHandler: { (error) in
+                print("Error sending message: %@", error)
+            }
+        )
+        print("InterfaceController.\(__FUNCTION__): \(started) sended.")
     }
     
     override func awakeWithContext(context: AnyObject?) {
@@ -66,6 +74,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             session?.delegate = self
             session?.activateSession()
             print("InterfaceController.\(__FUNCTION__): session \(session) is activated.")
+            print("InterfaceController.\(__FUNCTION__): Reachable: \(session?.reachable)  / Delegate: \(session?.delegate)")
         }
         print("InterfaceController.\(__FUNCTION__): controller is visible.")
     }
@@ -101,6 +110,30 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         formatter.maximumFractionDigits = fractionDigits
         let moneyFormatted = formatter.stringFromNumber(money)
         return moneyFormatted!
+    }
+
+    // MARK: - WCSessionDelegate
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        print("InterfaceController.\(__FUNCTION__): received message = \(message) is ignored.");
+        //let msg = message["msg"]!
+        //print("InterfaceController.\(__FUNCTION__): msg = \(msg).")
+    }
+    
+    func session(session: WCSession, didReceiveApplicationContext applicationContext:
+            [String : AnyObject]) {
+        print("InterfaceController.\(__FUNCTION__): received applicationContext = \(applicationContext) is ignored.");
+        //let msg = applicationContext["msg"]!
+        //print("InterfaceController.\(__FUNCTION__): msg = \(msg).")
+    }
+    
+    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+        print("InterfaceController.\(__FUNCTION__): received userInfo = \(userInfo).")
+        var remoteCalc: ClockCalculator?
+        let calc = userInfo["calc"]
+        remoteCalc = calc as? ClockCalculator
+        print("InterfaceController.\(__FUNCTION__): received calc = \(calc).")
+        print("InterfaceController.\(__FUNCTION__): received calc = \(remoteCalc).")
     }
 
 }
