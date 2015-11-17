@@ -43,25 +43,25 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        NSLog("didReceiveMessage: %@", message)
         print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received with replyHander \(replyHandler).")
     }
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received.")
-        let msg = message["msg"]!
-        self.messages.append("Message \(msg)")
+        //let msg = message["msg"]!
+        //self.messages.append("Message \(msg)")
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        let msg = applicationContext["msg"]!
-        self.messages.append("AppContext \(msg)")
+        print("ConnectivityHandler.\(__FUNCTION__): \(applicationContext) received.")
+        //let msg = applicationContext["msg"]!
+        //self.messages.append("AppContext \(msg)")
     }
     
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): userInfo '\(userInfo)' received.")
-        let msg = userInfo["msg"]!
-        self.messages.append("UserInfo \(msg)")
+        //let msg = userInfo["msg"]!
+        //self.messages.append("UserInfo \(msg)")
     }
     
 }

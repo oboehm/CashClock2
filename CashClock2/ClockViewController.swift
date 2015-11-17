@@ -23,6 +23,7 @@ import UIKit
 import iAd
 import WatchConnectivity
 
+/*
 enum State : String, CustomStringConvertible {
     case Init = "initialized";
     case Started = "started";
@@ -35,6 +36,7 @@ enum State : String, CustomStringConvertible {
         }
     }
 }
+*/
 
 class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     
@@ -163,7 +165,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             calculator.startTimer()
             showStopButton()
             break
-        case .Started:              // "Stop" was pressed
+        case .Started, .Continued:              // "Stop" was pressed
             calculator.stopTimer()
             startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
                 forState: UIControlState.Normal)

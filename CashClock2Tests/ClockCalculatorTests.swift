@@ -68,6 +68,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
             print("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
             XCTAssert(elapsedTime >= 0, "elapsedTime \(elapsedTime) is to small")
             XCTAssert(elapsedTime < 1000, "elapsedTime \(elapsedTime) is to big")
+            XCTAssert(self.calculator.state == State.Started, "expected: state = Started")
         }
     }
     

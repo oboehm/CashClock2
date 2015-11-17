@@ -39,6 +39,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             startButton.setTitle("Stop")
         }
         started = !started
+        /*
         session?.sendMessage(["start" : started],
             replyHandler: { (response) in
                 print("Reply: \(response)")
@@ -46,7 +47,11 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
                 print("Error sending message: %@", error)
             }
         )
-        print("InterfaceController.\(__FUNCTION__): \(started) sended.")
+        */
+        session?.transferUserInfo(["calc" : calculator])
+        print("InterfaceController.\(__FUNCTION__): \(calculator) sended via \(session).")
+        session?.transferUserInfo(["started" : started])
+        print("InterfaceController.\(__FUNCTION__): \(started) sended via \(session).")
     }
     
     override func awakeWithContext(context: AnyObject?) {
@@ -132,8 +137,18 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         var remoteCalc: ClockCalculator?
         let calc = userInfo["calc"]
         remoteCalc = calc as? ClockCalculator
+        if (remoteCalc != nil) {
+            syncCalculator(remoteCalc!)
+        }
         print("InterfaceController.\(__FUNCTION__): received calc = \(calc).")
         print("InterfaceController.\(__FUNCTION__): received calc = \(remoteCalc).")
+    }
+    
+    private func syncCalculator(remoteCalc: ClockCalculator) {
+        self.calculator.numberOfPersons = remoteCalc.numberOfPersons
+        self.calculator.costPerHour = remoteCalc.costPerHour
+        print("InterfaceController.\(__FUNCTION__): calculator is synced with \(remoteCalc).")
+        self.setPersonHourLabel()
     }
 
 }

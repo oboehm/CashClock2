@@ -20,6 +20,20 @@
 
 import Foundation
 
+enum State : String, CustomStringConvertible {
+    case Init = "init";
+    case Started = "start";
+    case Stopped = "stop";
+    case Continued = "cont";
+    
+    // to be Printable
+    var description : String {
+        get {
+            return self.rawValue
+        }
+    }
+}
+
 /**
  * This protocol is placed here in this file because otherwise I got an
  * strange compiler error
@@ -49,6 +63,7 @@ class ClockCalculator:NSObject, NSCoding {
     var elapsedTime:NSTimeInterval = 0
     var timer:NSTimer? = nil
     var observers:[ClockObserver] = []
+    var state = State.Init
     
     /**
      * To get a better string representation for logging we override the
@@ -56,7 +71,8 @@ class ClockCalculator:NSObject, NSCoding {
      */
     override var description : String {
         return String(numberOfPersons) + "x" + String(costPerHour) + "$x"
-            + String(Int(elapsedTime)) + "s=" + String(Int(totalCost)) + "$"
+            + String(Int(elapsedTime)) + "s=" + String(Int(totalCost)) + "$ ("
+            + state.rawValue + ")"
     }
     
     func addObserver(observer:ClockObserver) -> Int {
@@ -72,12 +88,14 @@ class ClockCalculator:NSObject, NSCoding {
     func startTimer() {
         resetTimer()
         continueTimer()
+        state = State.Started
     }
     
     func stopTimer() {
         timer?.invalidate()
         timer = nil
         updateTimeAndMoney()
+        state = State.Stopped
         print("ClockCalculator.\(__FUNCTION__): timer is stopped.")
     }
     
@@ -86,7 +104,8 @@ class ClockCalculator:NSObject, NSCoding {
         currentTime = startTime
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
             selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
-        print("ClockCalculator.\(__FUNCTION__): timer is started (again).")
+        state = State.Continued
+        print("ClockCalculator.\(__FUNCTION__): timer is continued.")
     }
     
     func resetTimer() {
@@ -151,6 +170,7 @@ class ClockCalculator:NSObject, NSCoding {
     func encodeWithCoder(coder:NSCoder) {
         coder.encodeInt(Int32(self.costPerHour), forKey: "costPerHour")
         coder.encodeInt(Int32(self.numberOfPersons), forKey: "numberOfPersons")
+        coder.encodeObject(self.state.rawValue, forKey: "state")
     }
     
     /**
