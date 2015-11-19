@@ -111,6 +111,7 @@ class ClockCalculator:NSObject, NSCoding {
     func resetTimer() {
         elapsedTime = 0
         totalCost = 0.0
+        state = State.Init
         print("ClockCalculator.\(__FUNCTION__): timer is resetted.")
     }
     

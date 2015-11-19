@@ -49,7 +49,6 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var displayMoneyLabel: UILabel!
     @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
-    var state = State.Init
     var connectivityHandler : ConnectivityHandler!
 
     /**
@@ -159,8 +158,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     * http://rshankar.com/simple-stopwatch-app-in-swift/ .
     */
     @IBAction func clickStartStop(sender: AnyObject) {
-        print("ClockViewController.\(__FUNCTION__): start/stop button pressed in state \(state)")
-        switch (state) {
+        print("ClockViewController.\(__FUNCTION__): start/stop button pressed in state \(calculator.state)")
+        switch (calculator.state) {
         case .Init:                 // "Start" was pressed
             calculator.startTimer()
             showStopButton()
@@ -172,7 +171,6 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
                 forState: UIControlState.Normal)
             enable(resetButton)
-            state = State.Stopped
             break;
         case .Stopped:              // "continue" / "weiter" was pressed
             calculator.continueTimer()
@@ -186,7 +184,6 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBAction func clickReset(sender: AnyObject) {
         resetTimer()
         resetStartButton()
-        state = State.Init
     }
     
     func resetTimer() {
@@ -204,7 +201,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             forState: UIControlState.Normal)
         startStopButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         disable(resetButton)
-        state = State.Started
+        //state = State.Started
     }
     
     func disable(button: UIButton) {
