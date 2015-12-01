@@ -22,24 +22,58 @@
 import UIKit
 import WatchConnectivity
 
+/**
+ * This class is singleton to wrap a WCSession. Some of the code here is
+ * insprired by https://gist.github.com/NatashaTheRobot/6bcbe79afd7e9572edf6.
+ */
 class ConnectivityHandler : NSObject, WCSessionDelegate {
     
+    // Keep a reference for the session,
+    // which will be used later for sending / receiving data
     var session = WCSession.defaultSession()
+
+//    // Add a validSession variable to check that the Watch is paired
+//    // and the Watch App installed to prevent extra computation
+//    // if these conditions are not met.
+//    // This is a computed property, since the user can pair their device and / or
+//    // install your app while using your iOS app, so this can become valid
+//    private var validSession: WCSession? {
+//        // paired - the user has to have their device paired to the watch
+//        // watchAppInstalled - the user must have your watch app installed
+//        // Note: if the device is paired, but your watch app is not installed
+//        // consider prompting the user to install it for a better experience
+//        if let session = session where session.paired && session.watchAppInstalled {
+//            return session
+//        }
+//        return nil
+//    }
     
-    var messages = [String]() {
+    // Instantiate the Singleton
+    static let sharedManager = ConnectivityHandler()
+    
+    var messages = String() {
         // fire KVO-updates for Swift property
         willSet { willChangeValueForKey("messages") }
         didSet  { didChangeValueForKey("messages")  }
     }
+    var transfered = ClockCalculator()
     
     override init() {
         super.init()
+        self.startSession()
+    }
+    
+    /**
+     * Activate Session
+     * This needs to be called to activate the session before first use!
+     */
+    func startSession() {
         session.delegate = self
         session.activateSession()
         print("ConnectivityHandler.\(__FUNCTION__): \(session) activated.")
         print("ConnectivityHandler.\(__FUNCTION__): Paired: \(session.paired) / Installed: \(session.watchAppInstalled) / Reachable: \(session.reachable)")
     }
-    
+
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
@@ -48,23 +82,50 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received.")
-        //let msg = message["msg"]!
-        //self.messages.append("Message \(msg)")
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): \(applicationContext) received.")
-        //let msg = applicationContext["msg"]!
-        //self.messages.append("AppContext \(msg)")
     }
     
+    /**
+     * This method will be triggered if the watch part transfers a ClockCalculator
+     * object as userInfo.
+     */
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): userInfo '\(userInfo)' received.")
-        //let msg = userInfo["msg"]!
-        //self.messages.append("UserInfo \(msg)")
+        let state = userInfo["state"]
+        if (state is String) {
+            let str = state as! String
+            transfered.state = State(rawValue: str)!
+        }
+        self.messages = "state \(state)"
     }
-    
+
 }
+
+
+
+// MARK: Application Context
+// use when your app needs only the latest information
+// if the data was not sent, it will be replaced
+//extension ConnectivityHandler {
+//    
+//    /**
+//     * Sender: This is where the magic happens!
+//     * Just updateApplicationContext on the session!
+//     */
+//    func updateApplicationContext(applicationContext: [String : AnyObject]) throws {
+//        if let session = validSession {
+//            do {
+//                try session.updateApplicationContext(applicationContext)
+//            } catch let error {
+//                throw error
+//            }
+//        }
+//    }
+//    
+//}
 
 
 
@@ -73,15 +134,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var connectivityHandler : ConnectivityHandler?
-    
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         print("AppDelegate.\(__FUNCTION__): \(application) launched.")
-        if WCSession.isSupported() {
+        if (WCSession.isSupported()) {
             self.connectivityHandler = ConnectivityHandler()
             print("AppDelegate.\(__FUNCTION__): WCSession supported.")
-        } else {
-            print("AppDelegate.\(__FUNCTION__): WCSession not supported (e.g. on iPad).")
         }
         return true
     }

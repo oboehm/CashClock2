@@ -18,7 +18,6 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     @IBOutlet weak var startButton: WKInterfaceButton!
     @IBOutlet weak var personHourLabel: WKInterfaceLabel!
     var calculator = ClockCalculator()
-    var started = false
     var session = WCSession?()
     
    /**
@@ -28,30 +27,23 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     // TODO set color (green / red)
     @IBAction func buttonTapped() {
         print("InterfaceController.\(__FUNCTION__): button was tapped.")
-        if (started) {
+        switch (calculator.state) {
+        case .Started, .Continued:
             watchTimer.stop()
             calculator.stopTimer()
             startButton.setTitle("Start")
-        } else {
+            break;
+        case .Init, .Stopped:
             watchTimer.setDate(NSDate(timeIntervalSinceNow: 0))
             watchTimer.start()
             calculator.startTimer()
             startButton.setTitle("Stop")
+            break;
         }
-        started = !started
-        /*
-        session?.sendMessage(["start" : started],
-            replyHandler: { (response) in
-                print("Reply: \(response)")
-            }, errorHandler: { (error) in
-                print("Error sending message: %@", error)
-            }
-        )
-        */
-        session?.transferUserInfo(["calc" : calculator])
+        session?.transferUserInfo(["calc" : calculator.description])
         print("InterfaceController.\(__FUNCTION__): \(calculator) sended via \(session).")
-        session?.transferUserInfo(["started" : started])
-        print("InterfaceController.\(__FUNCTION__): \(started) sended via \(session).")
+        session?.transferUserInfo(["state" : calculator.state.rawValue])
+        print("InterfaceController.\(__FUNCTION__): \(calculator.state) sended via \(session).")
     }
     
     override func awakeWithContext(context: AnyObject?) {

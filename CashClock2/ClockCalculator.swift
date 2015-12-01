@@ -61,7 +61,7 @@ class ClockCalculator:NSObject, NSCoding {
     var startTime:NSTimeInterval = 0
     var currentTime:NSTimeInterval = 0
     var elapsedTime:NSTimeInterval = 0
-    var timer:NSTimer? = nil
+    var timer:NSTimer = NSTimer()
     var observers:[ClockObserver] = []
     var state = State.Init
     
@@ -92,26 +92,25 @@ class ClockCalculator:NSObject, NSCoding {
     }
     
     func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        timer.invalidate()
         updateTimeAndMoney()
         state = State.Stopped
-        print("ClockCalculator.\(__FUNCTION__): timer is stopped.")
+        print("ClockCalculator.\(__FUNCTION__): timer \(timer) is stopped.")
     }
     
     func continueTimer() {
         startTime = NSDate.timeIntervalSinceReferenceDate()
-        currentTime = startTime
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
             selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
         state = State.Continued
-        print("ClockCalculator.\(__FUNCTION__): timer is continued.")
+        print("ClockCalculator.\(__FUNCTION__): timer \(timer) is continued.")
     }
     
     func resetTimer() {
         elapsedTime = 0
         totalCost = 0.0
         state = State.Init
+        timer.invalidate()
         print("ClockCalculator.\(__FUNCTION__): timer is resetted.")
     }
     

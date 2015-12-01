@@ -52,7 +52,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     var connectivityHandler : ConnectivityHandler!
 
     /**
-    * After the vew is loaded the used ClockCalculator is allocated and set up.
+    * After the view is loaded the used ClockCalculator is allocated and set up.
     * Also we set the property 'delegate' for internal text field
     * (see "Programmieren fuer iPhone und iPad", p. 279).
     *
@@ -94,6 +94,16 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
 
     /**
+     * This method should be called if message property in ConnectivityHandler
+     * was changed.
+     */
+    //override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    //    if object === connectivityHandler {
+    //        print("ClockViewController.\(__FUNCTION__): \(connectivityHandler.messages) observed.")
+    //    }
+    //}
+
+    /**
      * This function populates values for some controls. The values which are
      * assigned for the fields will be displayed with localization format.
      * from: http://rshankar.com/internationalization-and-localization-of-apps-in-xcode-6-and-swift/
@@ -132,12 +142,49 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let value = sender.value
         calculator.numberOfPersons = Int(value)
         updateNumberOfPersons(Int(value))
-        //let dict = ["calc" : calculator]
-        //WCSession.defaultSession().transferUserInfo(dict)
-        connectivityHandler.session.transferUserInfo(["calc" : calculator])
-        print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
+        transferDataToWatch()
     }
     
+    private func transferDataToWatch() {
+        connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
+//        do {
+//            try ConnectivityHandler.sharedManager.updateApplicationContext(["calc" : calculator])
+//            print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
+//       } catch {
+//            //let alertController = UIAlertController(title: "Oops!", message: "communication to watch failed", preferredStyle: .Alert)
+//            //presentViewController(alertController, animated: true, completion: nil)
+//            print("ClockViewController.\(__FUNCTION__): communication of '\(calculator)' to watch failed!.")
+//        }
+    }
+   
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if object === connectivityHandler {
+            print("ClockViewController.\(__FUNCTION__): \(object) with \(connectivityHandler.transfered) received.")
+            // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
+            dispatch_async(dispatch_get_main_queue(), {
+                self.updateState(self.connectivityHandler.transfered.state)
+            })
+        }
+    }
+    
+    private func updateState(state: State) {
+        switch (state) {
+        case .Started:              // "Start" was received
+            calculator.startTimer()
+            break
+        case .Continued:            // "Cont'd" was received
+            calculator.continueTimer();
+            break;
+        case .Stopped:              // "Stop" was received
+            calculator.stopTimer()
+            break
+        case .Init:
+            calculator.resetTimer()
+            break
+        }
+    }
+
     private func updateNumberOfPersons(value: Int) {
         print("ClockViewController.\(__FUNCTION__): number of persons is set to \(value)")
         calculator.numberOfPersons = value
@@ -178,12 +225,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             break
         }
         print("ClockViewController.\(__FUNCTION__): sending \(calculator) to watch...")
-        connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        //connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        transferDataToWatch()
     }
     
     @IBAction func clickReset(sender: AnyObject) {
         resetTimer()
         resetStartButton()
+        transferDataToWatch()
     }
     
     func resetTimer() {
@@ -289,6 +338,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBAction func leaveTextField(textField: UITextField) {
         print("ClockViewController.\(__FUNCTION__): text field \(textField) is left.");
         self.animateTextField(textField, distance: 60)
+        transferDataToWatch()
     }
 
     /**
