@@ -31,17 +31,16 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         case .Started, .Continued:
             watchTimer.stop()
             calculator.stopTimer()
-            startButton.setTitle("Start")
+            startButton.setTitle("continue")
             break;
         case .Init, .Stopped:
-            watchTimer.setDate(NSDate(timeIntervalSinceNow: 0))
+            let time = calculator.getTime()
+            watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
             watchTimer.start()
-            calculator.startTimer()
-            startButton.setTitle("Stop")
+            calculator.continueTimer()
+            startButton.setTitle("stop")
             break;
         }
-        session?.transferUserInfo(["calc" : calculator.description])
-        print("InterfaceController.\(__FUNCTION__): \(calculator) sended via \(session).")
         session?.transferUserInfo(["state" : calculator.state.rawValue])
         print("InterfaceController.\(__FUNCTION__): \(calculator.state) sended via \(session).")
     }
@@ -53,6 +52,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         updateElapsedMoney(calculator.getMoney())
         calculator.addObserver(self)
         setPersonHourLabel()
+        startButton.setTitle("start")
         print("InterfaceController.\(__FUNCTION__): \(context) was initialized.")
     }
     
