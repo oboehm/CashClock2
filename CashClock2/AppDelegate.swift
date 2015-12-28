@@ -80,8 +80,18 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
         print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received with replyHander \(replyHandler).")
     }
     
+    /**
+     * This method will be triggered if the watch part transfers a ClockCalculator
+     * object as userInfo.
+     */
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
         print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received.")
+        let state = message["state"]
+        if (state is String) {
+            let str = state as! String
+            transfered.state = State(rawValue: str)!
+        }
+        self.messages = "state \(state)"
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
@@ -100,6 +110,19 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
             transfered.state = State(rawValue: str)!
         }
         self.messages = "state \(state)"
+    }
+    
+    /**
+     *  FIXME: session.updateApplicationContext oder session.sendMessage benutzen
+     *         (fuer sofortige Uebertragunt)!
+     */
+    func transferStateOf(calculator: ClockCalculator) {
+        print("ConnectivityHander.\(__FUNCTION__): sending \(calculator) to watch...")
+        //self.session.transferUserInfo(["state" : calculator.state.rawValue])
+        self.session.sendMessage(["state" : calculator.state.rawValue], replyHandler: nil) { (error) in
+            NSLog("Error sending message: %@", error)
+        }
+        print("ConnectivityHander.\(__FUNCTION__): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
     }
 
 }

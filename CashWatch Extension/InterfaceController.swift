@@ -29,20 +29,28 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         print("InterfaceController.\(__FUNCTION__): button was tapped.")
         switch (calculator.state) {
         case .Started, .Continued:
-            watchTimer.stop()
-            calculator.stopTimer()
-            startButton.setTitle("continue")
+            self.stopTimer()
             break;
         case .Init, .Stopped:
-            let time = calculator.getTime()
-            watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
-            watchTimer.start()
-            calculator.continueTimer()
-            startButton.setTitle("stop")
+            self.continueTimer()
             break;
         }
         session?.transferUserInfo(["state" : calculator.state.rawValue])
         print("InterfaceController.\(__FUNCTION__): \(calculator.state) sended via \(session).")
+    }
+    
+    private func stopTimer() {
+        watchTimer.stop()
+        calculator.stopTimer()
+        startButton.setTitle("continue")
+    }
+    
+    private func continueTimer() {
+        let time = calculator.getTime()
+        watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
+        watchTimer.start()
+        calculator.continueTimer()
+        startButton.setTitle("stop")
     }
     
     override func awakeWithContext(context: AnyObject?) {
@@ -112,28 +120,46 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-        print("InterfaceController.\(__FUNCTION__): received message = \(message) is ignored.");
-        //let msg = message["msg"]!
-        //print("InterfaceController.\(__FUNCTION__): msg = \(msg).")
+        print("InterfaceController.\(__FUNCTION__): received message = \(message).")
+        let state = message["state"]
+        if (state is String) {
+            let str = state as! String
+            let state = State(rawValue: str)!
+            print("InterfaceController.\(__FUNCTION__): state \(state) received.")
+            switch (state) {
+            case .Started:              // "Start" was received
+                self.continueTimer();
+                break
+            case .Continued:            // "Cont'd" was received
+                self.continueTimer();
+                break;
+            case .Stopped:              // "Stop" was received
+                self.stopTimer()
+                break
+            case .Init:
+                calculator.resetTimer()
+                break
+            }
+        }
+        //        var remoteCalc: ClockCalculator?
+        //        let calc = userInfo["calc"]
+        //        remoteCalc = calc as? ClockCalculator
+        //        if (remoteCalc != nil) {
+        //            syncCalculator(remoteCalc!)
+        //        }
+        //        print("InterfaceController.\(__FUNCTION__): received calc = \(calc).")
+        //        print("InterfaceController.\(__FUNCTION__): received calc = \(remoteCalc).")
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext:
             [String : AnyObject]) {
-        print("InterfaceController.\(__FUNCTION__): received applicationContext = \(applicationContext) is ignored.");
+        print("InterfaceController.\(__FUNCTION__): received applicationContext = \(applicationContext) is ignored.")
         //let msg = applicationContext["msg"]!
         //print("InterfaceController.\(__FUNCTION__): msg = \(msg).")
     }
     
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-        print("InterfaceController.\(__FUNCTION__): received userInfo = \(userInfo).")
-        var remoteCalc: ClockCalculator?
-        let calc = userInfo["calc"]
-        remoteCalc = calc as? ClockCalculator
-        if (remoteCalc != nil) {
-            syncCalculator(remoteCalc!)
-        }
-        print("InterfaceController.\(__FUNCTION__): received calc = \(calc).")
-        print("InterfaceController.\(__FUNCTION__): received calc = \(remoteCalc).")
+        print("InterfaceController.\(__FUNCTION__): received userInfo = \(userInfo) is ignored.")
     }
     
     private func syncCalculator(remoteCalc: ClockCalculator) {

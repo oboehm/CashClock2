@@ -146,7 +146,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func transferDataToWatch() {
-        connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        self.connectivityHandler.session.transferUserInfo(["calc" : calculator])
         print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
 //        do {
 //            try ConnectivityHandler.sharedManager.updateApplicationContext(["calc" : calculator])
@@ -224,9 +224,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             showStopButton()
             break
         }
-        print("ClockViewController.\(__FUNCTION__): sending \(calculator) to watch...")
+        self.connectivityHandler.transferStateOf(calculator)
         //connectivityHandler.session.transferUserInfo(["calc" : calculator])
-        transferDataToWatch()
+        //transferDataToWatch()
     }
     
     @IBAction func clickReset(sender: AnyObject) {
