@@ -77,7 +77,7 @@ class ClockCalculator:NSObject, NSCoding {
     
     func addObserver(observer:ClockObserver) -> Int {
         self.observers.append(observer)
-        print("ClockCalculator.\(__FUNCTION__): \(observer) is added as \(observers.count) observer.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(observer) is added as observer \(observers.count) .")
         return self.observers.count - 1
     }
     
@@ -95,15 +95,28 @@ class ClockCalculator:NSObject, NSCoding {
         timer.invalidate()
         updateTimeAndMoney()
         state = State.Stopped
-        print("ClockCalculator.\(__FUNCTION__): timer \(timer) is stopped.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(timer) is stopped.")
     }
     
+    /**
+     * Here we start the timer. The timer must be started in the main queue.
+     * This is the reason why we use GCD here, see
+     * https://osxentwicklerforum.de/index.php/Thread/30586-NSTimer-feuert-nicht/?postID=270700#post270700
+     */
     func continueTimer() {
-        startTime = NSDate.timeIntervalSinceReferenceDate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
-            selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
-        state = State.Continued
-        print("ClockCalculator.\(__FUNCTION__): timer \(timer) is continued.")
+        self.startTime = NSDate.timeIntervalSinceReferenceDate()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            // see https://osxentwicklerforum.de/index.php/Thread/30586-NSTimer-feuert-nicht/?postID=270700#post270700
+            dispatch_async(dispatch_get_main_queue()) {
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
+                    selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
+                //NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+                //self.timer.tolerance = 0.05
+                //self.timer.fire()
+                //print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(self.timer) is continued.")
+            }
+        }
+        self.state = State.Continued
     }
     
     func resetTimer() {
@@ -111,7 +124,7 @@ class ClockCalculator:NSObject, NSCoding {
         totalCost = 0.0
         state = State.Init
         timer.invalidate()
-        print("ClockCalculator.\(__FUNCTION__): timer is resetted.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): timer is resetted.")
     }
     
     /**
@@ -121,6 +134,7 @@ class ClockCalculator:NSObject, NSCoding {
      */
     func updateTimeAndMoney() {
         currentTime = NSDate.timeIntervalSinceReferenceDate()
+        //print("tick")
         let interval = currentTime - startTime
         assert(interval >= 0, "invalid startTime: \(startTime)")
         let intervalCost = Double(interval) * Double(costPerHour * numberOfPersons) / 3600.0
@@ -180,7 +194,7 @@ class ClockCalculator:NSObject, NSCoding {
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "CashClock")
-        print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
     }
     
     /**
@@ -193,12 +207,12 @@ class ClockCalculator:NSObject, NSCoding {
             if let clockData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? ClockCalculator {
                 self.costPerHour = clockData.costPerHour;
                 self.numberOfPersons = clockData.numberOfPersons;
-                print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
+                print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
             } else {
-                print("ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
+                print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
             }
         } else {
-            print("ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
+            print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
         }
     }
 
