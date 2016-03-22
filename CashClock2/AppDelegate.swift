@@ -113,16 +113,32 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     }
     
     /**
-     *  FIXME: session.updateApplicationContext oder session.sendMessage benutzen
-     *         (fuer sofortige Uebertragunt)!
+     * Fuer die sofortige Uebertragung verwenden wir hier session.sendMessage
+     * (und nicht session.transferUserInfo).
+     * Anm.: Uebertragung mit session.updateApplicationContext hat leider nicht
+     * funktioniert :-(
      */
     func transferStateOf(calculator: ClockCalculator) {
-        print("ConnectivityHander.\(__FUNCTION__): sending \(calculator) to watch...")
-        //self.session.transferUserInfo(["state" : calculator.state.rawValue])
+        print("ConnectivityHander.\(__FUNCTION__): sending state of \(calculator) to watch...")
         self.session.sendMessage(["state" : calculator.state.rawValue], replyHandler: nil) { (error) in
             NSLog("Error sending message: %@", error)
         }
         print("ConnectivityHander.\(__FUNCTION__): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
+    }
+
+    /**
+     * Versuche mit session.transferUserInfo und session.updateApplicationContext
+     * haben leider nicht funktioniert. Daher greifen wir jetzt auf die
+     * Variante mit session.sendMessage zurueck.
+     * Dummerweise kann man mit session.sendMessage nur einfache Datentypen
+     * wie String verschicken.
+     */
+    func transferDataOf(calculator: ClockCalculator) {
+        print("ConnectivityHander.\(__FUNCTION__): sending data of \(calculator) to watch...")
+        self.session.sendMessage(["data" : calculator.description], replyHandler: nil) { (error) in
+            NSLog("Error sending message: %@", error)
+        }
+        print("ConnectivityHander.\(__FUNCTION__): \(calculator) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
     }
 
 }

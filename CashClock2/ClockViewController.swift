@@ -146,7 +146,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func transferDataToWatch() {
-        self.connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        //self.connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        //self.connectivityHandler.session.transferUserInfo(["calc" : "dummy"])
+        self.connectivityHandler.transferDataOf(calculator)
         print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
 //        do {
 //            try ConnectivityHandler.sharedManager.updateApplicationContext(["calc" : calculator])

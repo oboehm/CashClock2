@@ -131,12 +131,11 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-        //print("InterfaceController.\(__FUNCTION__): received message = \(message).")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): received message = \(message).")
         let state = message["state"]
         if (state is String) {
             let str = state as! String
             let state = State(rawValue: str)!
-            print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): state \(state) received.")
             switch (state) {
             case .Started:              // "Start" was received
                 self.startTimer();
@@ -151,6 +150,11 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
                 calculator.resetTimer()
                 break
             }
+        }
+        let data = message["data"]
+        if (data is String) {
+            let dat = data as! String
+            calculator.setData(dat);
         }
         //        var remoteCalc: ClockCalculator?
         //        let calc = userInfo["calc"]

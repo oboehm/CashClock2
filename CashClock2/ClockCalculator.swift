@@ -75,6 +75,15 @@ class ClockCalculator:NSObject, NSCoding {
             + state.rawValue + ")"
     }
     
+    /**
+     * Dies ist das Gegenstueck zur description-Methode: hier werden die
+     * Daten auseinandergenommen und damit die internen Attribute gesetzt.
+     */
+    func setData(data:String) {
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(data) will be set.")
+        // TODO: String parsen und Daten setzen
+    }
+    
     func addObserver(observer:ClockObserver) -> Int {
         self.observers.append(observer)
         print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(observer) is added as observer \(observers.count) .")
