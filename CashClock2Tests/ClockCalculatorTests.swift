@@ -121,5 +121,13 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         XCTAssertEqual(42, calculator.numberOfPersons, "data not loaded");
         XCTAssertEqual(4711, calculator.costPerHour, "data not loaded");
     }
+    
+    /**
+     * Here we test the string repesentation of the ClockCalculator.
+     */
+    func testDescription() {
+        let s = calculator.description
+        XCTAssertEqual("1x40$x0s=0$ (init)", s, "wrong description")
+    }
 
 }

@@ -104,7 +104,7 @@ class ClockCalculator:NSObject, NSCoding {
         timer.invalidate()
         updateTimeAndMoney()
         state = State.Stopped
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(timer) is stopped.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): timer is stopped.")
     }
     
     /**
