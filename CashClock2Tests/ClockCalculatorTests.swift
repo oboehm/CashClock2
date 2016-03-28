@@ -129,5 +129,14 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         let s = calculator.description
         XCTAssertEqual("1x40$x0s=0$ (init)", s, "wrong description")
     }
+    
+    /**
+     * Here we test if we can set the internal data of the ClockCalculator with
+     * ther internal string representation.
+     */
+    func testSetData() {
+        calculator.setData("2x50$x900s=25$ (stop)")
+        XCTAssertEqual(2, calculator.numberOfPersons, "wrong number of persons");
+    }
 
 }
