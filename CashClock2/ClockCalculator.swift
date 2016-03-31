@@ -81,8 +81,10 @@ class ClockCalculator:NSObject, NSCoding {
      */
     func setData(data:String) {
         print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(data) will be set.")
-        let args = data.characters.split("x")
-        self.numberOfPersons = Int(String(args[0]))!
+        let scanner = NSScanner(string: data)
+        scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "x$= ()")
+        scanner.scanInteger(&self.numberOfPersons)
+        scanner.scanInteger(&self.costPerHour)
     }
     
     func addObserver(observer:ClockObserver) -> Int {

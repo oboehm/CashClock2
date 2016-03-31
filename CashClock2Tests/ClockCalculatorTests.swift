@@ -137,6 +137,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     func testSetData() {
         calculator.setData("2x50$x900s=25$ (stop)")
         XCTAssertEqual(2, calculator.numberOfPersons, "wrong number of persons");
+        XCTAssertEqual(50, calculator.costPerHour, "wrong cost per hour");
     }
 
 }
