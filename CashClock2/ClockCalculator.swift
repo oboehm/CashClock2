@@ -85,6 +85,7 @@ class ClockCalculator:NSObject, NSCoding {
         scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "x$= ()")
         scanner.scanInteger(&self.numberOfPersons)
         scanner.scanInteger(&self.costPerHour)
+        scanner.scanDouble(&self.elapsedTime);
     }
     
     func addObserver(observer:ClockObserver) -> Int {

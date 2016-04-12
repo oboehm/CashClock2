@@ -138,6 +138,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.setData("2x50$x900s=25$ (stop)")
         XCTAssertEqual(2, calculator.numberOfPersons, "wrong number of persons");
         XCTAssertEqual(50, calculator.costPerHour, "wrong cost per hour");
+        XCTAssertEqual(900, calculator.elapsedTime, "wrong elapsed time");
     }
 
 }
