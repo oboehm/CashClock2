@@ -78,20 +78,22 @@ class ClockCalculator:NSObject, NSCoding {
     /**
      * Dies ist das Gegenstueck zur description-Methode: hier werden die
      * Daten auseinandergenommen und damit die internen Attribute gesetzt.
+     * 
+     * Parameter: data: z.B. "2x50$x900s=25$ (stop)"
      */
     func setData(data:String) {
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): \(data) will be set.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): '\(data)' will be set.")
         let scanner = NSScanner(string: data)
         scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "x$= ()")
         scanner.scanInteger(&self.numberOfPersons)
         scanner.scanInteger(&self.costPerHour)
         scanner.scanDouble(&self.elapsedTime);
         var text: NSString?
+        // hier ueberlesen wir das 's' nach der Zeitangabe
         scanner.scanCharactersFromSet(NSCharacterSet.letterCharacterSet(), intoString: &text)
         scanner.scanDouble(&self.totalCost);
         scanner.scanCharactersFromSet(NSCharacterSet.letterCharacterSet(), intoString: &text)
-        let text2:String = text as! String
-        self.state = State.init(rawValue: text2)!
+        self.state = State.init(rawValue: text as! String)!
     }
     
     func addObserver(observer:ClockObserver) -> Int {
