@@ -140,6 +140,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         XCTAssertEqual(50, calculator.costPerHour, "wrong cost per hour");
         XCTAssertEqual(900, calculator.elapsedTime, "wrong elapsed time");
         XCTAssertEqual(25, calculator.totalCost, "wrong total cost");
+        XCTAssertEqual(State.Stopped, calculator.state, "wrong state");
     }
 
 }

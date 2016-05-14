@@ -80,18 +80,23 @@ class ClockCalculator:NSObject, NSCoding {
      * Daten auseinandergenommen und damit die internen Attribute gesetzt.
      */
     func setData(data:String) {
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(data) will be set.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): \(data) will be set.")
         let scanner = NSScanner(string: data)
-        scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "x$s= ()")
+        scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "x$= ()")
         scanner.scanInteger(&self.numberOfPersons)
         scanner.scanInteger(&self.costPerHour)
         scanner.scanDouble(&self.elapsedTime);
+        var text: NSString?
+        scanner.scanCharactersFromSet(NSCharacterSet.letterCharacterSet(), intoString: &text)
         scanner.scanDouble(&self.totalCost);
+        scanner.scanCharactersFromSet(NSCharacterSet.letterCharacterSet(), intoString: &text)
+        let text2:String = text as! String
+        self.state = State.init(rawValue: text2)!
     }
     
     func addObserver(observer:ClockObserver) -> Int {
         self.observers.append(observer)
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): \(observer) is added as observer \(observers.count) .")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): \(observer) is added as observer \(observers.count) .")
         return self.observers.count - 1
     }
     
