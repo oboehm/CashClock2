@@ -70,14 +70,14 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     func startSession() {
         session.delegate = self
         session.activateSession()
-        print("ConnectivityHandler.\(__FUNCTION__): \(session) activated.")
-        print("ConnectivityHandler.\(__FUNCTION__): Paired: \(session.paired) / Installed: \(session.watchAppInstalled) / Reachable: \(session.reachable)")
+        print("ConnectivityHandler.\(#function): \(session) activated.")
+        print("ConnectivityHandler.\(#function): Paired: \(session.paired) / Installed: \(session.watchAppInstalled) / Reachable: \(session.reachable)")
     }
 
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received with replyHander \(replyHandler).")
+        print("ConnectivityHandler.\(#function): message '\(message)' received with replyHander \(replyHandler).")
     }
     
     /**
@@ -85,7 +85,7 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      * object as userInfo.
      */
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-        print("ConnectivityHandler.\(__FUNCTION__): message '\(message)' received.")
+        print("ConnectivityHandler.\(#function): message '\(message)' received.")
         let state = message["state"]
         if (state is String) {
             let str = state as! String
@@ -95,7 +95,7 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        print("ConnectivityHandler.\(__FUNCTION__): \(applicationContext) received.")
+        print("ConnectivityHandler.\(#function): \(applicationContext) received.")
     }
     
     /**
@@ -103,7 +103,7 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      * object as userInfo.
      */
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-        print("ConnectivityHandler.\(__FUNCTION__): userInfo '\(userInfo)' received.")
+        print("ConnectivityHandler.\(#function): userInfo '\(userInfo)' received.")
         let state = userInfo["state"]
         if (state is String) {
             let str = state as! String
@@ -119,11 +119,11 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      * funktioniert :-(
      */
     func transferStateOf(calculator: ClockCalculator) {
-        print("ConnectivityHander.\(__FUNCTION__): sending state of \(calculator) to watch...")
+        print("ConnectivityHander.\(#function): sending state of \(calculator) to watch...")
         self.session.sendMessage(["state" : calculator.state.rawValue], replyHandler: nil) { (error) in
             NSLog("Error sending message: %@", error)
         }
-        print("ConnectivityHander.\(__FUNCTION__): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
+        print("ConnectivityHander.\(#function): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
     }
 
     /**
@@ -134,11 +134,11 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      * wie String verschicken.
      */
     func transferDataOf(calculator: ClockCalculator) {
-        print("ConnectivityHander.\(__FUNCTION__): sending data of \(calculator) to watch...")
+        print("ConnectivityHander.\(#function): sending data of \(calculator) to watch...")
         self.session.sendMessage(["data" : calculator.description], replyHandler: nil) { (error) in
             NSLog("Error sending message: %@", error)
         }
-        print("ConnectivityHander.\(__FUNCTION__): \(calculator) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
+        print("ConnectivityHander.\(#function): \(calculator) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
     }
 
 }
@@ -176,10 +176,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        print("AppDelegate.\(__FUNCTION__): \(application) launched.")
+        print("AppDelegate.\(#function): \(application) launched.")
         if (WCSession.isSupported()) {
             self.connectivityHandler = ConnectivityHandler()
-            print("AppDelegate.\(__FUNCTION__): WCSession supported.")
+            print("AppDelegate.\(#function): WCSession supported.")
         }
         return true
     }
@@ -187,28 +187,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        print("AppDelegate.\(__FUNCTION__): \(application) is inactive.")
+        print("AppDelegate.\(#function): \(application) is inactive.")
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        print("AppDelegate.\(__FUNCTION__): \(application) entered background.")
+        print("AppDelegate.\(#function): \(application) entered background.")
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        print("AppDelegate.\(__FUNCTION__): \(application) entered foreground.")
+        print("AppDelegate.\(#function): \(application) entered foreground.")
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        print("AppDelegate.\(__FUNCTION__): \(application) is active.")
+        print("AppDelegate.\(#function): \(application) is active.")
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        print("AppDelegate.\(__FUNCTION__): \(application) terminated.")
+        print("AppDelegate.\(#function): \(application) terminated.")
     }
 
 

@@ -72,7 +72,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         self.registerForApplicationWillTerminate()
         self.connectivityHandler = (UIApplication.sharedApplication().delegate as? AppDelegate)?.connectivityHandler
         connectivityHandler.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
-        print("ClockViewController.\(__FUNCTION__): iPhone application loaded.")
+        print("ClockViewController.\(#function): iPhone application loaded.")
     }
     
     /**
@@ -83,14 +83,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let app = UIApplication.sharedApplication()
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "applicationWillTerminate:",
+            selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)),
             name: UIApplicationWillTerminateNotification,
             object: app)
     }
     
     func applicationWillTerminate(notification:NSNotification?) {
         calculator.save()
-        print("ClockViewController.\(__FUNCTION__): \(notification) terminated.")
+        print("ClockViewController.\(#function): \(notification) terminated.")
     }
 
     /**
@@ -149,7 +149,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         //self.connectivityHandler.session.transferUserInfo(["calc" : calculator])
         //self.connectivityHandler.session.transferUserInfo(["calc" : "dummy"])
         self.connectivityHandler.transferDataOf(calculator)
-        print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
+        print("ClockViewController.\(#function): \(calculator) was transfered to watch.")
 //        do {
 //            try ConnectivityHandler.sharedManager.updateApplicationContext(["calc" : calculator])
 //            print("ClockViewController.\(__FUNCTION__): \(calculator) was transfered to watch.")
@@ -162,7 +162,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if object === connectivityHandler {
-            print("ClockViewController.\(__FUNCTION__): \(object) with \(connectivityHandler.transfered) received.")
+            print("ClockViewController.\(#function): \(object) with \(connectivityHandler.transfered) received.")
             // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
             dispatch_async(dispatch_get_main_queue(), {
                 self.updateState(self.connectivityHandler.transfered.state)
@@ -188,14 +188,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
 
     private func updateNumberOfPersons(value: Int) {
-        print("ClockViewController.\(__FUNCTION__): number of persons is set to \(value)")
+        print("ClockViewController.\(#function): number of persons is set to \(value)")
         calculator.numberOfPersons = value
         stepperMemberCount.value = Double(calculator.numberOfPersons)
         textFieldMemberCount.text = String(calculator.numberOfPersons)
     }
     
     private func updateCostPerHour(value: Int) {
-        print("ClockViewController.\(__FUNCTION__): cost per hour is set to \(value)")
+        print("ClockViewController.\(#function): cost per hour is set to \(value)")
         calculator.costPerHour = value
         textFieldCostPerHour.text = String(value)
     }
@@ -207,7 +207,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     * http://rshankar.com/simple-stopwatch-app-in-swift/ .
     */
     @IBAction func clickStartStop(sender: AnyObject) {
-        print("ClockViewController.\(__FUNCTION__): start/stop button pressed in state \(calculator.state)")
+        print("ClockViewController.\(#function): start/stop button pressed in state \(calculator.state)")
         switch (calculator.state) {
         case .Init:                 // "Start" was pressed
             calculator.startTimer()
@@ -297,7 +297,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * see http://theapplady.net/workshop-9-hide-the-devices-keyboard/
      */
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("ClockViewController.\(__FUNCTION__): User tapped in the background.");
+        print("ClockViewController.\(#function): User tapped in the background.");
         endEditingMemberCount()
         endEditingCostPerHour()
     }
@@ -308,7 +308,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         if !textFieldMemberCount.text!.isEmpty {
             n = Int(textFieldMemberCount.text!)!
         }
-        print("ClockViewController.\(__FUNCTION__): Member count is set to \(n).");
+        print("ClockViewController.\(#function): Member count is set to \(n).");
         updateNumberOfPersons(n)
     }
     
@@ -318,7 +318,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         if !textFieldCostPerHour.text!.isEmpty {
             n = Int(textFieldCostPerHour.text!)!
         }
-        print("ClockViewController.\(__FUNCTION__): Cost per hour is set to \(n).");
+        print("ClockViewController.\(#function): Cost per hour is set to \(n).");
         updateCostPerHour(n)
     }
     
@@ -328,7 +328,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func enterTextField(textField: UITextField) {
-        print("ClockViewController.\(__FUNCTION__): text field \(textField) is entered.");
+        print("ClockViewController.\(#function): text field \(textField) is entered.");
         self.animateTextField(textField, distance: -60)
     }
 
@@ -338,7 +338,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
      * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func leaveTextField(textField: UITextField) {
-        print("ClockViewController.\(__FUNCTION__): text field \(textField) is left.");
+        print("ClockViewController.\(#function): text field \(textField) is left.");
         self.animateTextField(textField, distance: 60)
         transferDataToWatch()
     }

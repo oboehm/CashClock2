@@ -26,7 +26,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     */
     // TODO set color (green / red)
     @IBAction func buttonTapped() {
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): button was tapped.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): button was tapped.")
         switch (calculator.state) {
         case .Init:
             self.startTimer()
@@ -39,7 +39,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             break;
         }
         session?.transferUserInfo(["state" : calculator.state.rawValue])
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): \(calculator.state) sended via \(session).")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator.state) sended via \(session).")
     }
     
     private func startTimer() {
@@ -72,14 +72,14 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         calculator.addObserver(self)
         setPersonHourLabel()
         startButton.setTitle("start")
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): \(context) was initialized.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(context) was initialized.")
     }
     
     private func setPersonHourLabel() {
         let formatted = String(calculator.numberOfPersons) + " x "
             + getMoneyFormatted(calculator.costPerHour, fractionDigits:0)
         self.personHourLabel.setText(formatted)
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): label is set to '\(formatted)'.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): label is set to '\(formatted)'.")
     }
     
     override func willActivate() {
@@ -89,16 +89,16 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             session = WCSession.defaultSession()
             session?.delegate = self
             session?.activateSession()
-            print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): session \(session) is activated.")
-            print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): Reachable: \(session?.reachable)  / Delegate: \(session?.delegate)")
+            print("\(unsafeAddressOf(self))-InterfaceController.\(#function): session \(session) is activated.")
+            print("\(unsafeAddressOf(self))-InterfaceController.\(#function): Reachable: \(session?.reachable)  / Delegate: \(session?.delegate)")
         }
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): controller is visible.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): controller is visible.")
     }
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): controller is no longer visible.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): controller is no longer visible.")
     }
 
    /**
@@ -131,7 +131,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     // MARK: - WCSessionDelegate
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): received message = \(message).")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): received message = \(message).")
         let state = message["state"]
         if (state is String) {
             let str = state as! String
@@ -156,31 +156,23 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             let dat = data as! String
             calculator.setData(dat);
         }
-        //        var remoteCalc: ClockCalculator?
-        //        let calc = userInfo["calc"]
-        //        remoteCalc = calc as? ClockCalculator
-        //        if (remoteCalc != nil) {
-        //            syncCalculator(remoteCalc!)
-        //        }
-        //        print("InterfaceController.\(__FUNCTION__): received calc = \(calc).")
-        //        print("InterfaceController.\(__FUNCTION__): received calc = \(remoteCalc).")
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext:
             [String : AnyObject]) {
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): received applicationContext = \(applicationContext) is ignored.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): received applicationContext = \(applicationContext) is ignored.")
         //let msg = applicationContext["msg"]!
         //print("InterfaceController.\(__FUNCTION__): msg = \(msg).")
     }
     
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): received userInfo = \(userInfo) is ignored.")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): received userInfo = \(userInfo) is ignored.")
     }
     
     private func syncCalculator(remoteCalc: ClockCalculator) {
         self.calculator.numberOfPersons = remoteCalc.numberOfPersons
         self.calculator.costPerHour = remoteCalc.costPerHour
-        print("\(unsafeAddressOf(self))-InterfaceController.\(__FUNCTION__): calculator is synced with \(remoteCalc).")
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): calculator is synced with \(remoteCalc).")
         self.setPersonHourLabel()
     }
 

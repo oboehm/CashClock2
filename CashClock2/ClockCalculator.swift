@@ -116,7 +116,7 @@ class ClockCalculator:NSObject, NSCoding {
         timer.invalidate()
         updateTimeAndMoney()
         state = State.Stopped
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): timer is stopped.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): timer is stopped.")
     }
     
     /**
@@ -130,7 +130,7 @@ class ClockCalculator:NSObject, NSCoding {
             // see https://osxentwicklerforum.de/index.php/Thread/30586-NSTimer-feuert-nicht/?postID=270700#post270700
             dispatch_async(dispatch_get_main_queue()) {
                 self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
-                    selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
+                    selector: #selector(ClockCalculator.updateTimeAndMoney), userInfo: nil, repeats: true)
                 //NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
                 //self.timer.tolerance = 0.05
                 //self.timer.fire()
@@ -145,7 +145,7 @@ class ClockCalculator:NSObject, NSCoding {
         totalCost = 0.0
         state = State.Init
         timer.invalidate()
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): timer is resetted.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): timer is resetted.")
     }
     
     /**
@@ -215,7 +215,7 @@ class ClockCalculator:NSObject, NSCoding {
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "CashClock")
-        print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
+        print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
     }
     
     /**
@@ -228,12 +228,12 @@ class ClockCalculator:NSObject, NSCoding {
             if let clockData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? ClockCalculator {
                 self.costPerHour = clockData.costPerHour;
                 self.numberOfPersons = clockData.numberOfPersons;
-                print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
+                print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
             } else {
-                print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
+                print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): no calcuator data stored - nothing loaded.")
             }
         } else {
-            print("\(unsafeAddressOf(self))-ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
+            print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): nothing loaded - no data found.")
         }
     }
 
