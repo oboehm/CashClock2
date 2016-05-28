@@ -17,10 +17,12 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
     @IBOutlet weak var personHourLabel: WKInterfaceLabel!
+    @IBOutlet var personIcon: WKInterfaceImage!
     var calculator = ClockCalculator()
     var session = WCSession?()
     
    /**
+     @IBOutlet var pi: WKInterfaceImage!
     * This method is called if start / stop button will be pressed on the
     * watch.
     */
@@ -154,8 +156,13 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         let data = message["data"]
         if (data is String) {
             let dat = data as! String
-            calculator.setData(dat);
+            self.setData(dat)
         }
+    }
+    
+    func setData(data: String) {
+        calculator.setData(data)
+        setPersonHourLabel()
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext:
