@@ -132,7 +132,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     
     /**
      * Here we test if we can set the internal data of the ClockCalculator with
-     * ther internal string representation.
+     * their internal string representation.
      */
     func testSetData() {
         calculator.setData("2x50$x900s=25$ (stop)")

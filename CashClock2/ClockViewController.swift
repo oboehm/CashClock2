@@ -55,15 +55,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     * After the view is loaded the used ClockCalculator is allocated and set up.
     * Also we set the property 'delegate' for internal text field
     * (see "Programmieren fuer iPhone und iPad", p. 279).
-    *
-    * NOTE: For the iAds facility you need internet access. So be sure network
-    * is available if you want to test. Otherwise the iAd banner does not appear!
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.canDisplayBannerAds = true
         calculator.load()
         self.populateValues()
         updateNumberOfPersons(calculator.numberOfPersons)
@@ -228,7 +222,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         }
         self.connectivityHandler.transferStateOf(calculator)
         //connectivityHandler.session.transferUserInfo(["calc" : calculator])
-        //transferDataToWatch()
+        transferDataToWatch()
     }
     
     @IBAction func clickReset(sender: AnyObject) {
