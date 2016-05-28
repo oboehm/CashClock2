@@ -71,7 +71,7 @@ class ClockCalculator:NSObject, NSCoding {
      */
     override var description : String {
         return String(numberOfPersons) + "x" + String(costPerHour) + "$x"
-            + String(Int(elapsedTime)) + "s=" + String(Int(totalCost)) + "$ ("
+            + String(Int(elapsedTime)) + "s=" + String(format: "%.2f", totalCost) + "$ ("
             + state.rawValue + ")"
     }
     
