@@ -17,7 +17,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
     @IBOutlet weak var personHourLabel: WKInterfaceLabel!
-    @IBOutlet var personIcon: WKInterfaceImage!
+    @IBOutlet var personPicker: WKInterfacePicker!
     var calculator = ClockCalculator()
     var session = WCSession?()
     
@@ -66,6 +66,12 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         startButton.setTitle("stop")
     }
     
+    @IBAction func pickerSelectedItemChanged(value: Int) {
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): item \(value) selected.")
+        self.calculator.numberOfPersons = value + 1;
+        setPersonHourLabel()
+    }
+
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
@@ -74,6 +80,27 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         calculator.addObserver(self)
         setPersonHourLabel()
         startButton.setTitle("start")
+        
+        // setup picker
+//        var pickerItems: [WKPickerItem] = []
+//        for i in 1...5 {
+//            let item = WKPickerItem()
+//            item.contentImage = WKImage(imageName: "man\(i).png")
+//            pickerItems.append(item)
+//        }
+//        self.personPicker.setItems(pickerItems)
+        let pickerItems: [WKPickerItem] = (1...100).map {
+            let pickerItem = WKPickerItem()
+            let i = $0
+            if (i < 5) {
+                pickerItem.contentImage = WKImage(imageName: "man\(i).png")
+            } else {
+                pickerItem.contentImage = WKImage(imageName: "man5.png")
+            }
+            return pickerItem
+        }
+        self.personPicker.setItems(pickerItems)
+        
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(context) was initialized.")
     }
     
