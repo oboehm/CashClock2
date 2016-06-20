@@ -314,12 +314,12 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         }
         print("ClockViewController.\(#function): Cost per hour is set to \(n).");
         updateCostPerHour(n)
+        transferDataToWatch()
     }
     
     /**
      * If a text field is entered and the keyboard appears we have to move up the
      * view. Otherwise the text field would be hidden.
-     * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func enterTextField(textField: UITextField) {
         print("ClockViewController.\(#function): text field \(textField) is entered.");
@@ -329,12 +329,10 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     /**
      * If a text field is left and the keyboard disappears we have to should move
      * the view down again.
-     * TODO: Move the view only if necessary (e.g. on iPhone 4)
      */
     @IBAction func leaveTextField(textField: UITextField) {
         print("ClockViewController.\(#function): text field \(textField) is left.");
         self.animateTextField(textField, distance: 60)
-        transferDataToWatch()
     }
 
     /**

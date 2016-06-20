@@ -69,7 +69,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     @IBAction func pickerSelectedItemChanged(value: Int) {
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): item \(value) selected.")
         self.calculator.numberOfPersons = value + 1;
-        setPersonHourLabel()
+        self.setPersonHourLabel()
     }
 
     override func awakeWithContext(context: AnyObject?) {
@@ -78,7 +78,6 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         // Configure interface objects here.
         updateElapsedMoney(calculator.getMoney())
         calculator.addObserver(self)
-        setPersonHourLabel()
         startButton.setTitle("start")
         
         // setup picker
@@ -100,6 +99,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             return pickerItem
         }
         self.personPicker.setItems(pickerItems)
+        self.updateOutlets()
         
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(context) was initialized.")
     }
@@ -188,8 +188,13 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     }
     
     func setData(data: String) {
-        calculator.setData(data)
-        setPersonHourLabel()
+        self.calculator.setData(data)
+        self.updateOutlets()
+    }
+    
+    func updateOutlets() {
+        self.setPersonHourLabel()
+        self.personPicker.setSelectedItemIndex(calculator.numberOfPersons - 1)
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext:
