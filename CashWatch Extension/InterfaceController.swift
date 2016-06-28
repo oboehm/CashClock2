@@ -40,10 +40,18 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             self.continueTimer()
             break;
         }
-        session?.transferUserInfo(["state" : calculator.state.rawValue])
-        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator.state) sended via \(session).")
+        //session?.transferUserInfo(["state" : calculator.state.rawValue])
+        session?.transferUserInfo(["data" : calculator.description])
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator.description) sended via \(session).")
     }
     
+    private func resetTimer() {
+        self.calculator.resetTimer()
+        let time = calculator.getTime()
+        watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
+        startButton.setTitle("start")
+    }
+
     private func startTimer() {
         let time = calculator.getTime()
         watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
@@ -70,6 +78,8 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): item \(value) selected.")
         self.calculator.numberOfPersons = value + 1;
         self.setPersonHourLabel()
+        session?.transferUserInfo(["data" : calculator.description])
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator.description) sended via \(session).")
     }
 
     override func awakeWithContext(context: AnyObject?) {
@@ -166,6 +176,9 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             let str = state as! String
             let state = State(rawValue: str)!
             switch (state) {
+            case .Init:                 // "Reset" was received
+                self.resetTimer()
+                break
             case .Started:              // "Start" was received
                 self.startTimer();
                 break
@@ -175,15 +188,20 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             case .Stopped:              // "Stop" was received
                 self.stopTimer()
                 break
-            case .Init:
-                calculator.resetTimer()
-                break
             }
         }
         let data = message["data"]
         if (data is String) {
             let dat = data as! String
             self.setData(dat)
+            switch (self.calculator.state) {
+            case .Init:                 // "Reset" was received
+                self.resetTimer()
+                break
+            default:
+                print("\(unsafeAddressOf(self))-InterfaceController.\(#function): state of \(self.calculator) is ignored.")
+                break
+            }
         }
     }
     
@@ -195,6 +213,8 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     func updateOutlets() {
         self.setPersonHourLabel()
         self.personPicker.setSelectedItemIndex(calculator.numberOfPersons - 1)
+        self.updateElapsedMoney(self.calculator.getMoney())
+
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext:

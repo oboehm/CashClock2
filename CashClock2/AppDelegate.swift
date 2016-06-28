@@ -86,12 +86,18 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      */
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
         print("ConnectivityHandler.\(#function): message '\(message)' received.")
-        let state = message["state"]
-        if (state is String) {
-            let str = state as! String
-            transfered.state = State(rawValue: str)!
+        let data = message["data"]
+        if (data is String) {
+            let str = data as! String
+            transfered.setData(str)
         }
-        self.messages = "state \(state)"
+        self.messages = "data \(data)"
+//        let state = message["state"]
+//        if (state is String) {
+//            let str = state as! String
+//            transfered.state = State(rawValue: str)!
+//        }
+//        self.messages = "state \(state)"
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
@@ -104,12 +110,18 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
      */
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
         print("ConnectivityHandler.\(#function): userInfo '\(userInfo)' received.")
-        let state = userInfo["state"]
-        if (state is String) {
-            let str = state as! String
-            transfered.state = State(rawValue: str)!
+        let data = userInfo["data"]
+        if (data is String) {
+            let str = data as! String
+            transfered.setData(str)
         }
-        self.messages = "state \(state)"
+        self.messages = "data \(data)"
+//        let state = userInfo["state"]
+//        if (state is String) {
+//            let str = state as! String
+//            transfered.state = State(rawValue: str)!
+//        }
+//        self.messages = "state \(state)"
     }
     
     /**

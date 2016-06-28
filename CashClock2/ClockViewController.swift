@@ -160,6 +160,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
             dispatch_async(dispatch_get_main_queue(), {
                 self.updateState(self.connectivityHandler.transfered.state)
+                self.updateNumberOfPersons(self.connectivityHandler.transfered.numberOfPersons)
+                self.updateCostPerHour(self.connectivityHandler.transfered.costPerHour)
+                //self.calculator.setData(self.connectivityHandler.transfered.description)
             })
         }
     }
