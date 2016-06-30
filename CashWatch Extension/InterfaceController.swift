@@ -171,36 +171,46 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): received message = \(message).")
-        let state = message["state"]
-        if (state is String) {
-            let str = state as! String
-            let state = State(rawValue: str)!
-            switch (state) {
-            case .Init:                 // "Reset" was received
-                self.resetTimer()
-                break
-            case .Started:              // "Start" was received
-                self.startTimer();
-                break
-            case .Continued:            // "Cont'd" was received
-                self.continueTimer();
-                break;
-            case .Stopped:              // "Stop" was received
-                self.stopTimer()
-                break
-            }
-        }
+//        let state = message["state"]
+//        if (state is String) {
+//            let str = state as! String
+//            let state = State(rawValue: str)!
+//            switch (state) {
+//            case .Init:                 // "Reset" was received
+//                self.resetTimer()
+//                break
+//            case .Started:              // "Start" was received
+//                self.startTimer();
+//                break
+//            case .Continued:            // "Cont'd" was received
+//                self.continueTimer();
+//                break;
+//            case .Stopped:              // "Stop" was received
+//                self.stopTimer()
+//                break
+//            }
+//        }
         let data = message["data"]
         if (data is String) {
+            let oldState = self.calculator.state
             let dat = data as! String
             self.setData(dat)
-            switch (self.calculator.state) {
-            case .Init:                 // "Reset" was received
-                self.resetTimer()
-                break
-            default:
-                print("\(unsafeAddressOf(self))-InterfaceController.\(#function): state of \(self.calculator) is ignored.")
-                break
+            if (oldState != self.calculator.state) {
+                print("\(unsafeAddressOf(self))-InterfaceController.\(#function): state of \(calculator) has changed from \(oldState).")
+                switch (self.calculator.state) {
+                case .Init:                 // "Reset" was received
+                    self.resetTimer()
+                    break
+                case .Started:              // "Start" was received
+                    self.startTimer();
+                    break
+                case .Continued:            // "Cont'd" was received
+                    self.continueTimer();
+                    break;
+                case .Stopped:              // "Stop" was received
+                    self.stopTimer()
+                    break
+                }
             }
         }
     }

@@ -168,19 +168,22 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
     
     private func updateState(state: State) {
-        switch (state) {
-        case .Started:              // "Start" was received
-            calculator.startTimer()
-            break
-        case .Continued:            // "Cont'd" was received
-            calculator.continueTimer();
-            break;
-        case .Stopped:              // "Stop" was received
-            calculator.stopTimer()
-            break
-        case .Init:
-            calculator.resetTimer()
-            break
+        if (state != calculator.state) {
+            print("ClockViewController.\(#function): State of \(calculator) will be set to \(state)")
+            switch (state) {
+            case .Started:              // "Start" was received
+                calculator.startTimer()
+                break
+            case .Continued:            // "Cont'd" was received
+                calculator.continueTimer();
+                break;
+            case .Stopped:              // "Stop" was received
+                calculator.stopTimer()
+                break
+            case .Init:
+                calculator.resetTimer()
+                break
+            }
         }
     }
 
@@ -223,8 +226,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             showStopButton()
             break
         }
-        self.connectivityHandler.transferStateOf(calculator)
-        //connectivityHandler.session.transferUserInfo(["calc" : calculator])
+        //self.connectivityHandler.transferStateOf(calculator)
+        self.connectivityHandler.transferDataOf(self.calculator)
         transferDataToWatch()
     }
     

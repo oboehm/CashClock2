@@ -124,19 +124,19 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
 //        self.messages = "state \(state)"
     }
     
-    /**
-     * Fuer die sofortige Uebertragung verwenden wir hier session.sendMessage
-     * (und nicht session.transferUserInfo).
-     * Anm.: Uebertragung mit session.updateApplicationContext hat leider nicht
-     * funktioniert :-(
-     */
-    func transferStateOf(calculator: ClockCalculator) {
-        print("ConnectivityHander.\(#function): sending state of \(calculator) to watch...")
-        self.session.sendMessage(["state" : calculator.state.rawValue], replyHandler: nil) { (error) in
-            NSLog("Error sending message: %@", error)
-        }
-        print("ConnectivityHander.\(#function): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
-    }
+//    /**
+//     * Fuer die sofortige Uebertragung verwenden wir hier session.sendMessage
+//     * (und nicht session.transferUserInfo).
+//     * Anm.: Uebertragung mit session.updateApplicationContext hat leider nicht
+//     * funktioniert :-(
+//     */
+//    func transferStateOf(calculator: ClockCalculator) {
+//        print("ConnectivityHander.\(#function): sending state of \(calculator) to watch...")
+//        self.session.sendMessage(["state" : calculator.state.rawValue], replyHandler: nil) { (error) in
+//            NSLog("Error sending message: %@", error)
+//        }
+//        print("ConnectivityHander.\(#function): \(calculator.state) sended via \(self.session) with complicationEnabled=\(self.session.complicationEnabled).")
+//    }
 
     /**
      * Versuche mit session.transferUserInfo und session.updateApplicationContext
