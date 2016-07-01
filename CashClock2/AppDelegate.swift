@@ -32,22 +32,6 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     // which will be used later for sending / receiving data
     var session = WCSession.defaultSession()
 
-//    // Add a validSession variable to check that the Watch is paired
-//    // and the Watch App installed to prevent extra computation
-//    // if these conditions are not met.
-//    // This is a computed property, since the user can pair their device and / or
-//    // install your app while using your iOS app, so this can become valid
-//    private var validSession: WCSession? {
-//        // paired - the user has to have their device paired to the watch
-//        // watchAppInstalled - the user must have your watch app installed
-//        // Note: if the device is paired, but your watch app is not installed
-//        // consider prompting the user to install it for a better experience
-//        if let session = session where session.paired && session.watchAppInstalled {
-//            return session
-//        }
-//        return nil
-//    }
-    
     // Instantiate the Singleton
     static let sharedManager = ConnectivityHandler()
     

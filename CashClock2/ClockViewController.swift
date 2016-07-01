@@ -173,15 +173,19 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             switch (state) {
             case .Started:              // "Start" was received
                 calculator.startTimer()
+                self.showStopButton()
                 break
             case .Continued:            // "Cont'd" was received
                 calculator.continueTimer();
+                self.showStopButton()
                 break;
             case .Stopped:              // "Stop" was received
                 calculator.stopTimer()
+                self.showContinueButton()
                 break
             case .Init:
                 calculator.resetTimer()
+                self.showStopButton()
                 break
             }
         }
@@ -213,13 +217,9 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             calculator.startTimer()
             showStopButton()
             break
-        case .Started, .Continued:              // "Stop" was pressed
+        case .Started, .Continued:  // "Stop" was pressed
             calculator.stopTimer()
-            startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
-                forState: UIControlState.Normal)
-            startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
-                forState: UIControlState.Normal)
-            enable(resetButton)
+            showContinueButton()
             break;
         case .Stopped:              // "continue" / "weiter" was pressed
             calculator.continueTimer()
@@ -253,6 +253,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         startStopButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         disable(resetButton)
         //state = State.Started
+    }
+    
+    func showContinueButton() {
+        startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
+                                 forState: UIControlState.Normal)
+        startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
+                                      forState: UIControlState.Normal)
+        enable(resetButton)
     }
     
     func disable(button: UIButton) {
