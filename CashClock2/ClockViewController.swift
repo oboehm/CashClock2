@@ -49,7 +49,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var displayMoneyLabel: UILabel!
     @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
-    var connectivityHandler : ConnectivityHandler!
+    var connectivityHandler : ConnectivityHandler?
 
     /**
     * After the view is loaded the used ClockCalculator is allocated and set up.
@@ -65,7 +65,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         calculator.addObserver(self)
         self.registerForApplicationWillTerminate()
         self.connectivityHandler = (UIApplication.sharedApplication().delegate as? AppDelegate)?.connectivityHandler
-        connectivityHandler.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
+        connectivityHandler?.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
         print("ClockViewController.\(#function): iPhone application loaded.")
     }
     
@@ -142,7 +142,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     private func transferDataToWatch() {
         //self.connectivityHandler.session.transferUserInfo(["calc" : calculator])
         //self.connectivityHandler.session.transferUserInfo(["calc" : "dummy"])
-        self.connectivityHandler.transferDataOf(calculator)
+        self.connectivityHandler?.transferDataOf(calculator)
         print("ClockViewController.\(#function): \(calculator) was transfered to watch.")
 //        do {
 //            try ConnectivityHandler.sharedManager.updateApplicationContext(["calc" : calculator])
@@ -155,16 +155,27 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if object === connectivityHandler {
-            print("ClockViewController.\(#function): \(object) with \(connectivityHandler.transfered) received.")
-            // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
-            dispatch_async(dispatch_get_main_queue(), {
-                self.updateState(self.connectivityHandler.transfered.state)
-                self.updateNumberOfPersons(self.connectivityHandler.transfered.numberOfPersons)
-                self.updateCostPerHour(self.connectivityHandler.transfered.costPerHour)
-                //self.calculator.setData(self.connectivityHandler.transfered.description)
-            })
+        if let handler = self.connectivityHandler {
+            if object === handler {
+                print("ClockViewController.\(#function): \(object) with \(handler.transfered) received.")
+                // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateState(handler.transfered.state)
+                    self.updateNumberOfPersons(handler.transfered.numberOfPersons)
+                    self.updateCostPerHour(handler.transfered.costPerHour)
+                })
+            }
         }
+//        if object === connectivityHandler {
+//            print("ClockViewController.\(#function): \(object) with \(connectivityHandler.transfered) received.")
+//            // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
+//            dispatch_async(dispatch_get_main_queue(), {
+//                self.updateState(self.connectivityHandler.transfered.state)
+//                self.updateNumberOfPersons(self.connectivityHandler.transfered.numberOfPersons)
+//                self.updateCostPerHour(self.connectivityHandler.transfered.costPerHour)
+//                //self.calculator.setData(self.connectivityHandler.transfered.description)
+//            })
+//        }
     }
     
     private func updateState(state: State) {
@@ -227,7 +238,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             break
         }
         //self.connectivityHandler.transferStateOf(calculator)
-        self.connectivityHandler.transferDataOf(self.calculator)
+        self.connectivityHandler?.transferDataOf(self.calculator)
         transferDataToWatch()
     }
     
