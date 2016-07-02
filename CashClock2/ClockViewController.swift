@@ -66,6 +66,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         self.registerForApplicationWillTerminate()
         self.connectivityHandler = (UIApplication.sharedApplication().delegate as? AppDelegate)?.connectivityHandler
         connectivityHandler?.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
+        self.transferDataToWatch()
         print("ClockViewController.\(#function): iPhone application loaded.")
     }
     
@@ -160,6 +161,10 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
                 print("ClockViewController.\(#function): \(object) with \(handler.transfered) received.")
                 // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
                 dispatch_async(dispatch_get_main_queue(), {
+                    if (handler.transfered.totalCost > self.calculator.totalCost) {
+                        self.calculator.totalCost = handler.transfered.totalCost
+                        print("ClockViewController.\(#function): total cost of \(self.calculator) updated.")
+                    }
                     self.updateState(handler.transfered.state)
                     self.updateNumberOfPersons(handler.transfered.numberOfPersons)
                     self.updateCostPerHour(handler.transfered.costPerHour)
