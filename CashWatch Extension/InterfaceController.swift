@@ -194,7 +194,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         if (data is String) {
             let oldState = self.calculator.state
             let dat = data as! String
-            self.setData(dat)
+            self.updateData(dat)
             if (oldState != self.calculator.state) {
                 print("\(unsafeAddressOf(self))-InterfaceController.\(#function): state of \(calculator) has changed from \(oldState).")
                 switch (self.calculator.state) {
@@ -215,8 +215,30 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         }
     }
     
-    func setData(data: String) {
-        self.calculator.setData(data)
+    /**
+     *  Because the data from the remote site may be transfered some time
+     *  later we update the elapsed money only if the received data has a
+     *  a bigger amount.
+     */
+    func updateData(data: String) {
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator) will be updated with \(data).")
+        let calc = ClockCalculator()
+        calc.setData(data)
+        self.calculator.costPerHour = calc.costPerHour
+        self.calculator.numberOfPersons = calc.numberOfPersons
+        switch (calc.state) {
+        case .Started, .Continued:
+            if (calc.getMoney() > self.calculator.getMoney()) {
+                self.calculator.setData(data);
+                print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator) completely updated.")
+            } else {
+                self.calculator.state = calc.state
+                print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator) partially updated.")
+            }
+        default:
+            print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator) completely updated.")
+            self.calculator.setData(data);
+        }
         self.updateOutlets()
     }
     
