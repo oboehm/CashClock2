@@ -49,7 +49,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         self.calculator.resetTimer()
         let time = calculator.getTime()
         watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
-        startButton.setTitle("start")
+        startButton.setTitle(NSLocalizedString("start", comment:"start"))
     }
 
     private func startTimer() {
@@ -57,13 +57,13 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
         watchTimer.start()
         calculator.startTimer()
-        startButton.setTitle("stop")
+        startButton.setTitle(NSLocalizedString("stop", comment:"stop"))
     }
     
     private func stopTimer() {
         watchTimer.stop()
         calculator.stopTimer()
-        startButton.setTitle("continue")
+        startButton.setTitle(NSLocalizedString("continue", comment:"continue"))
     }
     
     private func continueTimer() {
@@ -71,7 +71,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
         watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
         watchTimer.start()
         calculator.continueTimer()
-        startButton.setTitle("stop")
+        startButton.setTitle(NSLocalizedString("stop", comment:"stop"))
     }
     
     @IBAction func pickerSelectedItemChanged(value: Int) {

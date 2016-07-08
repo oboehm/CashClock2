@@ -113,8 +113,8 @@ class ClockCalculator:NSObject, NSCoding {
     }
     
     func stopTimer() {
-        timer.invalidate()
         updateTimeAndMoney()
+        timer.invalidate()
         state = State.Stopped
         print("\(unsafeAddressOf(self))-ClockCalculator.\(#function): timer is stopped.")
     }

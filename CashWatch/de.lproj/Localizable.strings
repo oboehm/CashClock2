@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  CashClock
+
+  Created by oliver on 08.07.16.
+  Copyright © 2016 Oliver Boehm. All rights reserved.
+*/
+
+/* continue */
+"continue" = "weiter";
+
+/* start */
+"start" = "Start";
+
+/* stop */
+"stop" = "Stop";

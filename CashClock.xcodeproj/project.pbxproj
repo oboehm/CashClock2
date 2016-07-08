@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A70464251D303A06003F345C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A70464271D303A06003F345C /* Localizable.strings */; };
 		A71F23141ACF23550019C6F7 /* ClockCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */; };
 		A71F23151ACF25DC0019C6F7 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 		A73DF9081BE81095007FBD5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7D7E1AA1BCAF4180099B4C1 /* Assets.xcassets */; };
@@ -91,6 +92,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A70464261D303A06003F345C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A70464281D303A4C003F345C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockCalculatorTests.swift; sourceTree = "<group>"; };
 		A7625D071B7FB8F400B746D8 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		A76774EE1ABB71CA00A75265 /* CashClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +221,7 @@
 				A7D7E1931BCAF4180099B4C1 /* Interface.storyboard */,
 				A7D7E1961BCAF4180099B4C1 /* Assets.xcassets */,
 				A7D7E1981BCAF4180099B4C1 /* Info.plist */,
+				A70464271D303A06003F345C /* Localizable.strings */,
 			);
 			path = CashWatch;
 			sourceTree = "<group>";
@@ -394,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D7E1971BCAF4180099B4C1 /* Assets.xcassets in Resources */,
+				A70464251D303A06003F345C /* Localizable.strings in Resources */,
 				A73DF9081BE81095007FBD5F /* Assets.xcassets in Resources */,
 				A7D7E1951BCAF4180099B4C1 /* Interface.storyboard in Resources */,
 			);
@@ -462,6 +467,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A70464271D303A06003F345C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A70464261D303A06003F345C /* Base */,
+				A70464281D303A4C003F345C /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A76774F71ABB71CA00A75265 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -695,6 +709,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -714,6 +730,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
