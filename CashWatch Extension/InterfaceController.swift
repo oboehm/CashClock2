@@ -21,7 +21,13 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     var calculator = ClockCalculator()
     var session = WCSession?()
     
-   /**
+    @IBAction func menuItemPressed() {
+        print("\(unsafeAddressOf(self))-InterfaceController.\(#function): menu item was pressed.")
+        self.resetTimer()
+        self.sendData()
+    }
+
+    /**
      @IBOutlet var pi: WKInterfaceImage!
     * This method is called if start / stop button will be pressed on the
     * watch.
@@ -40,15 +46,20 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
             self.continueTimer()
             break;
         }
-        //session?.transferUserInfo(["state" : calculator.state.rawValue])
+        self.sendData()
+    }
+    
+    private func sendData() {
         session?.transferUserInfo(["data" : calculator.description])
         print("\(unsafeAddressOf(self))-InterfaceController.\(#function): \(calculator.description) sended via \(session).")
+        
     }
     
     private func resetTimer() {
         self.calculator.resetTimer()
         let time = calculator.getTime()
         watchTimer.setDate(NSDate(timeIntervalSinceNow: -time))
+        self.updateElapsedMoney(0)
         startButton.setTitle(NSLocalizedString("start", comment:"start"))
     }
 

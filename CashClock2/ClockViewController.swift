@@ -201,7 +201,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
                 break
             case .Init:
                 calculator.resetTimer()
-                self.showStopButton()
+                self.resetStartButton()
+                self.update(0, money: 0)
                 break
             }
         }

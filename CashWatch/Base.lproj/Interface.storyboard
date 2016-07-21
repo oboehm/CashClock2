@@ -35,6 +35,15 @@
                             </connections>
                         </button>
                     </items>
+                    <menu key="menu" id="HIy-tc-Awr">
+                        <items>
+                            <menuItem title="Reset" icon="resume" id="kqC-jM-reG">
+                                <connections>
+                                    <action selector="menuItemPressed" destination="AgC-eL-Hgc" id="V5I-FT-Vqg"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="moneyLabel" destination="a9l-Ci-rdi" id="J4C-D6-nvk"/>
                         <outlet property="personHourLabel" destination="FBa-Iu-xqx" id="Srx-UB-TRq"/>
