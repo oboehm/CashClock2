@@ -37,7 +37,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         NSUserDefaults.standardUserDefaults().removeObjectForKey("CashClock")
-        println("ClockCalculatorTests.\(__FUNCTION__): test data deleted.")
+        print("ClockCalculatorTests.\(__FUNCTION__): test data deleted.")
         super.tearDown()
     }
 
@@ -64,8 +64,8 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         // This is an example of a performance test case.
         self.measureBlock() {
             self.calculator.startTimer()
-            var elapsedTime = self.calculator.elapsedTime
-            println("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
+            let elapsedTime = self.calculator.elapsedTime
+            print("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
             XCTAssert(elapsedTime >= 0, "elapsedTime \(elapsedTime) is to small")
             XCTAssert(elapsedTime < 1000, "elapsedTime \(elapsedTime) is to big")
         }
@@ -81,7 +81,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.startTimer()
         usleep(200000)
         calculator.stopTimer()
-        println("ClockCalculatorTests.\(__FUNCTION__): costs = \(calculator.getMoney())"
+        print("ClockCalculatorTests.\(__FUNCTION__): costs = \(calculator.getMoney())"
             + " for \(calculator.getTime()) seconds")
         XCTAssertEqual(calculator.getMoney(), calculator.getTime(), "calculation is wrong")
     }
@@ -91,11 +91,11 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
      * by a timer inside the ClockCalculator class.
      */
     func testNotifications() {
-        var i = calculator.addObserver(self)
+        let i = calculator.addObserver(self)
         calculator.startTimer()
         usleep(310000)
         calculator.stopTimer()
-        println("ClockCalculatorTests.\(__FUNCTION__): \(self) was updated \(updated) time(s).")
+        print("ClockCalculatorTests.\(__FUNCTION__): \(self) was updated \(updated) time(s).")
         calculator.removeObserver(i)
         XCTAssert(updated > 0, "update(..) was not called")
     }

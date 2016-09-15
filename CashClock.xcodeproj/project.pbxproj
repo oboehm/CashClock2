@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,9 @@
 		A76774FE1ABB71CA00A75265 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A76774FC1ABB71CA00A75265 /* LaunchScreen.xib */; };
 		A78AE3131AC451FE00D4CE06 /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78AE3121AC451FE00D4CE06 /* ClockViewController.swift */; };
 		A7A030F71AEECDEE002555AB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A030F61AEECDEE002555AB /* iAd.framework */; };
+		A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */; };
+		A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */; };
+		A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C7340C1AFC02DC005C9DCE /* Localizable.strings */; };
 		A7FDC3041ACAFE9D00F33C19 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,18 +31,44 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A7595AD51AF95FD7000E53D3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A71F23131ACF23550019C6F7 /* ClockCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockCalculatorTests.swift; sourceTree = "<group>"; };
-		A76774EE1ABB71CA00A75265 /* CashClock2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashClock2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7595AB91AF95FD7000E53D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7595ABA1AF95FD7000E53D3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		A7595ABC1AF95FD7000E53D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A7595AC61AF95FD7000E53D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7595AC81AF95FD7000E53D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		A7595ACA1AF95FD7000E53D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A7625D071B7FB8F400B746D8 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		A76774EE1ABB71CA00A75265 /* CashClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A76774F21ABB71CA00A75265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A76774F31ABB71CA00A75265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A76774F81ABB71CA00A75265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A76774FA1ABB71CA00A75265 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A76774FD1ABB71CA00A75265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A76775031ABB71CB00A75265 /* CashClock2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashClock2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A76775031ABB71CB00A75265 /* CashClock.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashClock.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A76775081ABB71CB00A75265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A78AE3121AC451FE00D4CE06 /* ClockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
 		A7A030F61AEECDEE002555AB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		A7C733EE1AFBEE6E005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		A7C733EF1AFBEE6E005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A7C733F31AFBF1B3005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A7C733F81AFBF1B3005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A7C7340B1AFC02DC005C9DCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7C7340D1AFC02E2005C9DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,12 +91,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7595AB71AF95FD7000E53D3 /* CashClock2 WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A7595ABA1AF95FD7000E53D3 /* InterfaceController.swift */,
+				A7595ABC1AF95FD7000E53D3 /* Images.xcassets */,
+				A7595AB81AF95FD7000E53D3 /* Supporting Files */,
+			);
+			path = "CashClock2 WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		A7595AB81AF95FD7000E53D3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A7595AB91AF95FD7000E53D3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A7595AC41AF95FD7000E53D3 /* CashClock2 WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				A7595AC71AF95FD7000E53D3 /* Interface.storyboard */,
+				A7595ACA1AF95FD7000E53D3 /* Images.xcassets */,
+				A7595AC51AF95FD7000E53D3 /* Supporting Files */,
+			);
+			path = "CashClock2 WatchKit App";
+			sourceTree = "<group>";
+		};
+		A7595AC51AF95FD7000E53D3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A7595AC61AF95FD7000E53D3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A76774E51ABB71CA00A75265 = {
 			isa = PBXGroup;
 			children = (
+				A7625D071B7FB8F400B746D8 /* WatchKit.framework */,
+				A7C7340C1AFC02DC005C9DCE /* Localizable.strings */,
 				A7A030F61AEECDEE002555AB /* iAd.framework */,
 				A76774F01ABB71CA00A75265 /* CashClock2 */,
 				A76775061ABB71CB00A75265 /* CashClock2Tests */,
+				A7595AB71AF95FD7000E53D3 /* CashClock2 WatchKit Extension */,
+				A7595AC41AF95FD7000E53D3 /* CashClock2 WatchKit App */,
 				A76774EF1ABB71CA00A75265 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,8 +144,8 @@
 		A76774EF1ABB71CA00A75265 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A76774EE1ABB71CA00A75265 /* CashClock2.app */,
-				A76775031ABB71CB00A75265 /* CashClock2Tests.xctest */,
+				A76774EE1ABB71CA00A75265 /* CashClock.app */,
+				A76775031ABB71CB00A75265 /* CashClock.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +167,7 @@
 		A76774F11ABB71CA00A75265 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */,
 				A76774F21ABB71CA00A75265 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -115,6 +185,7 @@
 		A76775071ABB71CB00A75265 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */,
 				A76775081ABB71CB00A75265 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -123,26 +194,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A76774ED1ABB71CA00A75265 /* CashClock2 */ = {
+		A76774ED1ABB71CA00A75265 /* CashClock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A767750D1ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock2" */;
+			buildConfigurationList = A767750D1ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock" */;
 			buildPhases = (
 				A76774EA1ABB71CA00A75265 /* Sources */,
 				A76774EB1ABB71CA00A75265 /* Frameworks */,
 				A76774EC1ABB71CA00A75265 /* Resources */,
+				A7595AD51AF95FD7000E53D3 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = CashClock2;
+			name = CashClock;
 			productName = CashClock2;
-			productReference = A76774EE1ABB71CA00A75265 /* CashClock2.app */;
+			productReference = A76774EE1ABB71CA00A75265 /* CashClock.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A76775021ABB71CB00A75265 /* CashClock2Tests */ = {
+		A76775021ABB71CB00A75265 /* CashClockTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A76775101ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock2Tests" */;
+			buildConfigurationList = A76775101ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClockTests" */;
 			buildPhases = (
 				A76774FF1ABB71CB00A75265 /* Sources */,
 				A76775001ABB71CB00A75265 /* Frameworks */,
@@ -153,9 +225,9 @@
 			dependencies = (
 				A76775051ABB71CB00A75265 /* PBXTargetDependency */,
 			);
-			name = CashClock2Tests;
+			name = CashClockTests;
 			productName = CashClock2Tests;
-			productReference = A76775031ABB71CB00A75265 /* CashClock2Tests.xctest */;
+			productReference = A76775031ABB71CB00A75265 /* CashClock.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -164,8 +236,10 @@
 		A76774E61ABB71CA00A75265 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
-				ORGANIZATIONNAME = "Oliver Böhm";
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Oliver Boehm";
 				TargetAttributes = {
 					A76774ED1ABB71CA00A75265 = {
 						CreatedOnToolsVersion = 6.2;
@@ -177,21 +251,22 @@
 					};
 				};
 			};
-			buildConfigurationList = A76774E91ABB71CA00A75265 /* Build configuration list for PBXProject "CashClock2" */;
-			compatibilityVersion = "Xcode 3.2";
+			buildConfigurationList = A76774E91ABB71CA00A75265 /* Build configuration list for PBXProject "CashClock" */;
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = A76774E51ABB71CA00A75265;
 			productRefGroup = A76774EF1ABB71CA00A75265 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A76774ED1ABB71CA00A75265 /* CashClock2 */,
-				A76775021ABB71CB00A75265 /* CashClock2Tests */,
+				A76774ED1ABB71CA00A75265 /* CashClock */,
+				A76775021ABB71CB00A75265 /* CashClockTests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,7 +276,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */,
 				A76774F91ABB71CA00A75265 /* Main.storyboard in Resources */,
+				A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */,
 				A76774FE1ABB71CA00A75265 /* LaunchScreen.xib in Resources */,
 				A76774FB1ABB71CA00A75265 /* Images.xcassets in Resources */,
 			);
@@ -211,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,16 +319,25 @@
 /* Begin PBXTargetDependency section */
 		A76775051ABB71CB00A75265 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A76774ED1ABB71CA00A75265 /* CashClock2 */;
+			target = A76774ED1ABB71CA00A75265 /* CashClock */;
 			targetProxy = A76775041ABB71CB00A75265 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A7595AC71AF95FD7000E53D3 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7595AC81AF95FD7000E53D3 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		A76774F71ABB71CA00A75265 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A76774F81ABB71CA00A75265 /* Base */,
+				A7C733EE1AFBEE6E005C9DCE /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -259,8 +346,34 @@
 			isa = PBXVariantGroup;
 			children = (
 				A76774FD1ABB71CA00A75265 /* Base */,
+				A7C733EF1AFBEE6E005C9DCE /* de */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C733F31AFBF1B3005C9DCE /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C733F81AFBF1B3005C9DCE /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A7C7340C1AFC02DC005C9DCE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7C7340B1AFC02DC005C9DCE /* en */,
+				A7C7340D1AFC02E2005C9DCE /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -286,6 +399,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -300,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -337,7 +451,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -353,7 +467,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CashClock2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.cashclock.CashClock;
+				PRODUCT_NAME = CashClock;
 			};
 			name = Debug;
 		};
@@ -365,7 +480,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CashClock2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.cashclock.CashClock;
+				PRODUCT_NAME = CashClock;
 			};
 			name = Release;
 		};
@@ -383,8 +499,9 @@
 				);
 				INFOPLIST_FILE = CashClock2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock2.app/CashClock2";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.cashclock.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = CashClock;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock.app/CashClock";
 			};
 			name = Debug;
 		};
@@ -398,15 +515,16 @@
 				);
 				INFOPLIST_FILE = CashClock2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock2.app/CashClock2";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.cashclock.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = CashClock;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock.app/CashClock";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A76774E91ABB71CA00A75265 /* Build configuration list for PBXProject "CashClock2" */ = {
+		A76774E91ABB71CA00A75265 /* Build configuration list for PBXProject "CashClock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A767750B1ABB71CB00A75265 /* Debug */,
@@ -415,7 +533,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A767750D1ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock2" */ = {
+		A767750D1ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A767750E1ABB71CB00A75265 /* Debug */,
@@ -424,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A76775101ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClock2Tests" */ = {
+		A76775101ABB71CB00A75265 /* Build configuration list for PBXNativeTarget "CashClockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A76775111ABB71CB00A75265 /* Debug */,

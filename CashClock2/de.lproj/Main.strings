@@ -1,0 +1,24 @@
+/* Class = "UILabel"; text = "$0,000.00"; ObjectID = "2VV-TR-zW2"; */
+"2VV-TR-zW2.text" = "0.000,00 €";
+
+/* Class = "UILabel"; text = "member"; ObjectID = "9xd-JO-8C2"; */
+"9xd-JO-8C2.text" = "Teilnehmer";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "JAi-cH-6n1"; */
+"JAi-cH-6n1.text" = "00:00:00";
+
+/* Class = "UIButton"; normalTitle = "start"; ObjectID = "Kcm-XD-l0g"; */
+"Kcm-XD-l0g.normalTitle" = "Start";
+
+/* Class = "UITextField"; text = "1"; ObjectID = "Myc-Ca-JSm"; */
+"Myc-Ca-JSm.text" = "1";
+
+/* Class = "UILabel"; text = "$ cost / h"; ObjectID = "XoX-io-TyU"; */
+"XoX-io-TyU.text" = "€ Kosten / h";
+
+/* Class = "UITextField"; text = "40"; ObjectID = "e9i-Kl-NHT"; */
+"e9i-Kl-NHT.text" = "40";
+
+/* Class = "UIButton"; normalTitle = "reset"; ObjectID = "hOQ-Ra-TI8"; */
+"hOQ-Ra-TI8.normalTitle" = "Reset";
+
