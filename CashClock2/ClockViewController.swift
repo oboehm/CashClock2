@@ -222,7 +222,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     fileprivate func updateElapsedMoney(_ money:Double) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        self.displayMoneyLabel.text = formatter.string(from: NSNumber(money))
+        self.displayMoneyLabel.text = formatter.string(from: NSNumber(value: money))
         //self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
     }
     
