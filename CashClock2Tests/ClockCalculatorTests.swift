@@ -36,16 +36,16 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("CashClock")
-        print("ClockCalculatorTests.\(__FUNCTION__): test data deleted.")
+        UserDefaults.standard.removeObject(forKey: "CashClock")
+        print("ClockCalculatorTests.\(#function): test data deleted.")
         super.tearDown()
     }
 
     /**
      * This method will be called by the observed ClockCalculator.
      */
-    func update(time:NSTimeInterval, money:Double) {
-        updated++
+    func update(_ time:TimeInterval, money:Double) {
+        updated += 1
     }
     
     /**
@@ -62,10 +62,10 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
      */
     func testStartTimer() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             self.calculator.startTimer()
             let elapsedTime = self.calculator.elapsedTime
-            print("ClockCalculatorTests.\(__FUNCTION__): elapsedTime was \(elapsedTime)")
+            print("ClockCalculatorTests.\(#function): elapsedTime was \(elapsedTime)")
             XCTAssert(elapsedTime >= 0, "elapsedTime \(elapsedTime) is to small")
             XCTAssert(elapsedTime < 1000, "elapsedTime \(elapsedTime) is to big")
         }
@@ -81,7 +81,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.startTimer()
         usleep(200000)
         calculator.stopTimer()
-        print("ClockCalculatorTests.\(__FUNCTION__): costs = \(calculator.getMoney())"
+        print("ClockCalculatorTests.\(#function): costs = \(calculator.getMoney())"
             + " for \(calculator.getTime()) seconds")
         XCTAssertEqual(calculator.getMoney(), calculator.getTime(), "calculation is wrong")
     }
@@ -95,7 +95,7 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.startTimer()
         usleep(310000)
         calculator.stopTimer()
-        print("ClockCalculatorTests.\(__FUNCTION__): \(self) was updated \(updated) time(s).")
+        print("ClockCalculatorTests.\(#function): \(self) was updated \(updated) time(s).")
         calculator.removeObserver(i)
         XCTAssert(updated > 0, "update(..) was not called")
     }

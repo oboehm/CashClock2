@@ -25,7 +25,7 @@ import Foundation
  * strange compiler error
  */
 protocol ClockObserver {
-    func update(time:NSTimeInterval, money:Double)
+    func update(_ time:TimeInterval, money:Double)
 }
 
 /**
@@ -44,20 +44,20 @@ class ClockCalculator:NSObject, NSCoding {
     var numberOfPersons = 1
     var costPerHour = 40
     var totalCost = 0.0
-    var startTime:NSTimeInterval = 0
-    var currentTime:NSTimeInterval = 0
-    var elapsedTime:NSTimeInterval = 0
-    var timer:NSTimer? = nil
+    var startTime:TimeInterval = 0
+    var currentTime:TimeInterval = 0
+    var elapsedTime:TimeInterval = 0
+    var timer:Timer? = nil
     var observers:[ClockObserver] = []
     
-    func addObserver(observer:ClockObserver) -> Int {
+    func addObserver(_ observer:ClockObserver) -> Int {
         self.observers.append(observer)
-        print("ClockCalculator.\(__FUNCTION__): \(observer) is added as \(observers.count) observer.")
+        print("ClockCalculator.\(#function): \(observer) is added as \(observers.count) observer.")
         return self.observers.count - 1
     }
     
-    func removeObserver(i:Int) {
-        self.observers.removeAtIndex(i)
+    func removeObserver(_ i:Int) {
+        self.observers.remove(at: i)
     }
 
     func startTimer() {
@@ -69,21 +69,21 @@ class ClockCalculator:NSObject, NSCoding {
         timer?.invalidate()
         timer = nil
         updateTimeAndMoney()
-        print("ClockCalculator.\(__FUNCTION__): timer is stopped.")
+        print("ClockCalculator.\(#function): timer is stopped.")
     }
     
     func continueTimer() {
-        startTime = NSDate.timeIntervalSinceReferenceDate()
+        startTime = Date.timeIntervalSinceReferenceDate
         currentTime = startTime
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self,
-            selector: "updateTimeAndMoney", userInfo: nil, repeats: true)
-        print("ClockCalculator.\(__FUNCTION__): timer is started (again).")
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
+            selector: #selector(ClockCalculator.updateTimeAndMoney), userInfo: nil, repeats: true)
+        print("ClockCalculator.\(#function): timer is started (again).")
     }
     
     func resetTimer() {
         elapsedTime = 0
         totalCost = 0.0
-        print("ClockCalculator.\(__FUNCTION__): timer is resetted.")
+        print("ClockCalculator.\(#function): timer is resetted.")
     }
     
     /**
@@ -92,7 +92,7 @@ class ClockCalculator:NSObject, NSCoding {
      * elapsed time is updated.
      */
     func updateTimeAndMoney() {
-        currentTime = NSDate.timeIntervalSinceReferenceDate()
+        currentTime = Date.timeIntervalSinceReferenceDate
         let interval = currentTime - startTime
         assert(interval >= 0, "invalid startTime: \(startTime)")
         let intervalCost = Double(interval) * Double(costPerHour * numberOfPersons) / 3600.0
@@ -108,7 +108,7 @@ class ClockCalculator:NSObject, NSCoding {
      * The calculation of the total costs is now done in
      * updateTimeAndMoney().
      */
-    func getTime() -> NSTimeInterval {
+    func getTime() -> TimeInterval {
         return elapsedTime
     }
     
@@ -132,16 +132,16 @@ class ClockCalculator:NSObject, NSCoding {
      */
     required convenience init?(coder decoder: NSCoder) {
         self.init()
-        self.costPerHour = decoder.decodeIntegerForKey("costPerHour")
-        self.numberOfPersons = decoder.decodeIntegerForKey("numberOfPersons")
+        self.costPerHour = decoder.decodeInteger(forKey: "costPerHour")
+        self.numberOfPersons = decoder.decodeInteger(forKey: "numberOfPersons")
     }
     
     /**
      * This method is needed for the NSCoding protokoll.
      */
-    func encodeWithCoder(coder:NSCoder) {
-        coder.encodeInt(Int32(self.costPerHour), forKey: "costPerHour")
-        coder.encodeInt(Int32(self.numberOfPersons), forKey: "numberOfPersons")
+    func encode(with coder:NSCoder) {
+        coder.encodeCInt(Int32(self.costPerHour), forKey: "costPerHour")
+        coder.encodeCInt(Int32(self.numberOfPersons), forKey: "numberOfPersons")
     }
     
     /**
@@ -149,9 +149,9 @@ class ClockCalculator:NSObject, NSCoding {
      * see http://nshipster.com/nscoding/
      */
     func save() {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "CashClock")
-        print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
+        let data = NSKeyedArchiver.archivedData(withRootObject: self)
+        UserDefaults.standard.set(data, forKey: "CashClock")
+        print("ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
     }
     
     /**
@@ -159,17 +159,17 @@ class ClockCalculator:NSObject, NSCoding {
      * see http://nshipster.com/nscoding/
      */
     func load() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let data = defaults.objectForKey("CashClock") as? NSData {
-            if let clockData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? ClockCalculator {
+        let defaults = UserDefaults.standard
+        if let data = defaults.object(forKey: "CashClock") as? Data {
+            if let clockData = NSKeyedUnarchiver.unarchiveObject(with: data) as? ClockCalculator {
                 self.costPerHour = clockData.costPerHour;
                 self.numberOfPersons = clockData.numberOfPersons;
-                print("ClockCalculator.\(__FUNCTION__): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
+                print("ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
             } else {
-                print("ClockCalculator.\(__FUNCTION__): no calcuator data stored - nothing loaded.")
+                print("ClockCalculator.\(#function): no calcuator data stored - nothing loaded.")
             }
         } else {
-            print("ClockCalculator.\(__FUNCTION__): nothing loaded - no data found.")
+            print("ClockCalculator.\(#function): nothing loaded - no data found.")
         }
     }
 

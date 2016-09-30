@@ -244,9 +244,11 @@
 					A76774ED1ABB71CA00A75265 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = Z6826QH5UD;
+						LastSwiftMigration = 0800;
 					};
 					A76775021ABB71CB00A75265 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = A76774ED1ABB71CA00A75265;
 					};
 				};
@@ -469,6 +471,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.cashclock.CashClock;
 				PRODUCT_NAME = CashClock;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -482,6 +485,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.cashclock.CashClock;
 				PRODUCT_NAME = CashClock;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -501,6 +505,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.cashclock.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CashClock;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock.app/CashClock";
 			};
 			name = Debug;
@@ -517,6 +522,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.cashclock.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CashClock;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashClock.app/CashClock";
 			};
 			name = Release;
