@@ -65,7 +65,8 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         self.populateValues()
         updateNumberOfPersons(calculator.numberOfPersons)
         updateCostPerHour(calculator.costPerHour)
-        calculator.addObserver(self)
+        let n = calculator.addObserver(self)
+        print("ClockViewController.\(#function): \(self) is added as observer \(n).")
         self.registerForApplicationWillTerminate()
     }
     
