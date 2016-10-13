@@ -70,8 +70,7 @@ class ClockCalculator:NSObject, NSCoding {
      * description function from the CustomStringConvertible protocoll.
      */
     override var description : String {
-        return String(format: "%dx%f$x%ds=%.2f$ (%s)", numberOfPersons, costPerHour, elapsedTime, totalCost,
-                      state.rawValue)
+        return String(format: "%dx%d$x%ds=%.2f$ (\(state.rawValue))", numberOfPersons, costPerHour, Int(elapsedTime), totalCost)
     }
     
     func addObserver(_ observer:ClockObserver) -> Int {

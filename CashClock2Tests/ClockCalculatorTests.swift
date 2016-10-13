@@ -72,6 +72,14 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     }
     
     /**
+     * Here we test the string repesentation of the ClockCalculator.
+     */
+    func testDescription() {
+        let s = calculator.description
+        XCTAssertEqual("1x40$x0s=0.00$ (init)", s, "wrong description")
+    }
+    
+    /**
      * Here we check the calculation. We use 36$ costs per hour because this
      * is 1 cent / second.
      */
