@@ -22,19 +22,6 @@
 import UIKit
 import iAd
 
-enum State : String, CustomStringConvertible {
-    case Init = "initialized";
-    case Started = "started";
-    case Stopped = "stopped";
-    
-    // to be Printable
-    var description : String {
-        get {
-            return self.rawValue
-        }
-    }
-}
-
 class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     
     @IBOutlet var textFieldMemberCount: UITextField!
@@ -151,11 +138,11 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBAction func clickStartStop(_ sender: AnyObject) {
         print("ClockViewController.\(#function): start/stop button pressed in state \(state)")
         switch (state) {
-        case .Init:                 // "Start" was pressed
+        case .Init:                     // "Start" was pressed
             calculator.startTimer()
             showStopButton()
             break
-        case .Started:              // "Stop" was pressed
+        case .Started, .Continued:      // "Stop" was pressed
             calculator.stopTimer()
             startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
                 for: UIControlState())
@@ -164,7 +151,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             enable(resetButton)
             state = State.Stopped
             break;
-        case .Stopped:              // "continue" / "weiter" was pressed
+        case .Stopped:                  // "continue" / "weiter" was pressed
             calculator.continueTimer()
             showStopButton()
             break

@@ -20,6 +20,20 @@
 
 import Foundation
 
+enum State : String, CustomStringConvertible {
+    case Init = "init";
+    case Started = "start";
+    case Stopped = "stop";
+    case Continued = "cont";
+    
+    // to be Printable
+    var description : String {
+        get {
+            return self.rawValue
+        }
+    }
+}
+
 /**
  * This protocol is placed here in this file because otherwise I got an
  * strange compiler error
@@ -47,8 +61,18 @@ class ClockCalculator:NSObject, NSCoding {
     var startTime:TimeInterval = 0
     var currentTime:TimeInterval = 0
     var elapsedTime:TimeInterval = 0
-    var timer:Timer? = nil
+    var timer:Timer = Timer()
     var observers:[ClockObserver] = []
+    var state = State.Init
+    
+    /**
+     * To get a better string representation for logging we override the
+     * description function from the CustomStringConvertible protocoll.
+     */
+    override var description : String {
+        return String(format: "%dx%f$x%ds=%.2f$ (%s)", numberOfPersons, costPerHour, elapsedTime, totalCost,
+                      state.rawValue)
+    }
     
     func addObserver(_ observer:ClockObserver) -> Int {
         self.observers.append(observer)
@@ -66,8 +90,7 @@ class ClockCalculator:NSObject, NSCoding {
     }
     
     func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        timer.invalidate()
         updateTimeAndMoney()
         print("ClockCalculator.\(#function): timer is stopped.")
     }

@@ -8,13 +8,15 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, ClockObserver {
 
     @IBOutlet weak var moneyLabel: WKInterfaceLabel!
     @IBOutlet weak var watchTimer: WKInterfaceTimer!
     @IBOutlet weak var startButton: WKInterfaceButton!
+    var calculator = ClockCalculator()
     var started = false
 
     /**
@@ -51,6 +53,13 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
         print("InterfaceController.\(#function): controller is no longer visible.")
+    }
+
+    /**
+     * This method will be called by the observed CashCalculator.
+     */
+    func update(_ time:TimeInterval, money:Double) {
+        //updateElapsedMoney(money)
     }
 
 }

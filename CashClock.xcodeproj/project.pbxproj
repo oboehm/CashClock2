@@ -26,6 +26,7 @@
 		A7C733F21AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F41AFBF1B3005C9DCE /* InfoPlist.strings */; };
 		A7C733F71AFBF1B3005C9DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C733F91AFBF1B3005C9DCE /* InfoPlist.strings */; };
 		A7C7340A1AFC02DC005C9DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C7340C1AFC02DC005C9DCE /* Localizable.strings */; };
+		A7D3EE5E1DB01A3A0046B6B9 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 		A7FDC3041ACAFE9D00F33C19 /* ClockCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FDC3031ACAFE9D00F33C19 /* ClockCalculator.swift */; };
 /* End PBXBuildFile section */
 
@@ -420,6 +421,7 @@
 			files = (
 				A70F3F501DAAE301005E5ABA /* NotificationController.swift in Sources */,
 				A70F3F4E1DAAE301005E5ABA /* ExtensionDelegate.swift in Sources */,
+				A7D3EE5E1DB01A3A0046B6B9 /* ClockCalculator.swift in Sources */,
 				A70F3F4C1DAAE301005E5ABA /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
