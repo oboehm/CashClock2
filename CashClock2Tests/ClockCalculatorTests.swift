@@ -72,14 +72,6 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
     }
     
     /**
-     * Here we test the string repesentation of the ClockCalculator.
-     */
-    func testDescription() {
-        let s = calculator.description
-        XCTAssertEqual("1x40$x0s=0.00$ (init)", s, "wrong description")
-    }
-    
-    /**
      * Here we check the calculation. We use 36$ costs per hour because this
      * is 1 cent / second.
      */
@@ -127,6 +119,47 @@ class ClockCalculatorTests: XCTestCase, ClockObserver {
         calculator.load();
         XCTAssertEqual(42, calculator.numberOfPersons, "data not loaded");
         XCTAssertEqual(4711, calculator.costPerHour, "data not loaded");
+    }
+    
+    /**
+     * Here we test the string repesentation of the ClockCalculator.
+     */
+    func testDescription() {
+        let s = calculator.description
+        XCTAssertEqual("1x40$x0s=0.00$ (init)", s, "wrong description")
+    }
+
+    /**
+     * Here we test if we can set the internal data of the ClockCalculator with
+     * their internal string representation.
+     */
+    func testSetData() {
+        calculator.setData(data: "2x50$x900s=25$ (stop)")
+        XCTAssertEqual(2, calculator.numberOfPersons, "wrong number of persons");
+        XCTAssertEqual(50, calculator.costPerHour, "wrong cost per hour");
+        XCTAssertEqual(900, calculator.elapsedTime, "wrong elapsed time");
+        XCTAssertEqual(25, calculator.totalCost, "wrong total cost");
+        XCTAssertEqual(State.Stopped, calculator.state, "wrong state");
+    }
+    
+    /**
+     * This is the same test as before. But now we a number with decimal places
+     * for the total costs.
+     */
+    func testSetDataWithCents() {
+        calculator.setData(data: "1x23$x4s=5.67$ (start)")
+        XCTAssertEqual(5.67, calculator.totalCost, "wrong total cost");
+        XCTAssertEqual(State.Started, calculator.state, "wrong state");
+    }
+    
+    /**
+     * The method 'description' should return the same output as the method
+     * 'setData(String)' accepts as input.
+     */
+    func testSetDataVersusDescription() {
+        let data = "9x87$x6s=5.43$ (init)"
+        calculator.setData(data: data)
+        XCTAssertEqual(data, calculator.description, "wrong data or description")
     }
 
 }

@@ -72,7 +72,28 @@ class ClockCalculator:NSObject, NSCoding {
     override var description : String {
         return String(format: "%dx%d$x%ds=%.2f$ (\(state.rawValue))", numberOfPersons, costPerHour, Int(elapsedTime), totalCost)
     }
-    
+
+    /**
+     * Dies ist das Gegenstueck zur description-Methode: hier werden die
+     * Daten auseinandergenommen und damit die internen Attribute gesetzt.
+     *
+     * Parameter: data: z.B. "2x50$x900s=25$ (stop)"
+     */
+    func setData(data:String) {
+        print("\(Unmanaged.passUnretained(self))-ClockCalculator.\(#function): '\(data)' will be set.")
+        let scanner = Scanner(string: data)
+        scanner.charactersToBeSkipped = NSCharacterSet(charactersIn: "x$= ()") as CharacterSet
+        scanner.scanInt(&self.numberOfPersons)
+        scanner.scanInt(&self.costPerHour)
+        scanner.scanDouble(&self.elapsedTime);
+        var text: NSString?
+        // hier ueberlesen wir das 's' nach der Zeitangabe
+        scanner.scanCharacters(from: NSCharacterSet.letters, into: &text)
+        scanner.scanDouble(&self.totalCost);
+        scanner.scanCharacters(from: NSCharacterSet.letters, into: &text)
+        self.state = State.init(rawValue: text as! String)!
+    }
+
     func addObserver(_ observer:ClockObserver) -> Int {
         self.observers.append(observer)
         print("ClockCalculator.\(#function): \(observer) is added as \(observers.count) observer.")
@@ -86,26 +107,37 @@ class ClockCalculator:NSObject, NSCoding {
     func startTimer() {
         resetTimer()
         continueTimer()
+        state = State.Started
     }
     
     func stopTimer() {
-        timer.invalidate()
         updateTimeAndMoney()
-        print("ClockCalculator.\(#function): timer is stopped.")
+        timer.invalidate()
+        state = State.Stopped
+        print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): timer is stopped.")
     }
     
+    /**
+     * Here we start the timer. The timer must be started in the main queue.
+     * This is the reason why we use GCD here, see
+     * https://osxentwicklerforum.de/index.php/Thread/30586-NSTimer-feuert-nicht/?postID=270700#post270700
+     */
     func continueTimer() {
-        startTime = Date.timeIntervalSinceReferenceDate
-        currentTime = startTime
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
-            selector: #selector(ClockCalculator.updateTimeAndMoney), userInfo: nil, repeats: true)
-        print("ClockCalculator.\(#function): timer is started (again).")
+        self.startTime = NSDate.timeIntervalSinceReferenceDate
+        DispatchQueue.main.async {
+            // see https://osxentwicklerforum.de/index.php/Thread/30586-NSTimer-feuert-nicht/?postID=270700#post270700
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
+                                selector: #selector(ClockCalculator.updateTimeAndMoney), userInfo: nil, repeats: true)
+        }
+        self.state = State.Continued
     }
     
     func resetTimer() {
         elapsedTime = 0
         totalCost = 0.0
-        print("ClockCalculator.\(#function): timer is resetted.")
+        state = State.Init
+        timer.invalidate()
+        print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): timer is resetted.")
     }
     
     /**
@@ -164,6 +196,7 @@ class ClockCalculator:NSObject, NSCoding {
     func encode(with coder:NSCoder) {
         coder.encodeCInt(Int32(self.costPerHour), forKey: "costPerHour")
         coder.encodeCInt(Int32(self.numberOfPersons), forKey: "numberOfPersons")
+        coder.encode(self.state.rawValue, forKey: "state")
     }
     
     /**
@@ -173,7 +206,7 @@ class ClockCalculator:NSObject, NSCoding {
     func save() {
         let data = NSKeyedArchiver.archivedData(withRootObject: self)
         UserDefaults.standard.set(data, forKey: "CashClock")
-        print("ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
+        print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) saved.")
     }
     
     /**
@@ -182,16 +215,16 @@ class ClockCalculator:NSObject, NSCoding {
      */
     func load() {
         let defaults = UserDefaults.standard
-        if let data = defaults.object(forKey: "CashClock") as? Data {
-            if let clockData = NSKeyedUnarchiver.unarchiveObject(with: data) as? ClockCalculator {
+        if let data = defaults.object(forKey: "CashClock") as? NSData {
+            if let clockData = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? ClockCalculator {
                 self.costPerHour = clockData.costPerHour;
                 self.numberOfPersons = clockData.numberOfPersons;
-                print("ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
+                print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): CostPerHour=\(costPerHour), NumberOfPersons=\(numberOfPersons) loaded.")
             } else {
-                print("ClockCalculator.\(#function): no calcuator data stored - nothing loaded.")
+                print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): no calcuator data stored - nothing loaded.")
             }
         } else {
-            print("ClockCalculator.\(#function): nothing loaded - no data found.")
+            print("\(Unmanaged.passUnretained(self).toOpaque())-ClockCalculator.\(#function): nothing loaded - no data found.")
         }
     }
 

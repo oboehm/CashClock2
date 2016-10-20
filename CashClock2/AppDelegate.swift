@@ -20,6 +20,119 @@
 //
 
 import UIKit
+import WatchConnectivity
+
+/**
+ * This class is singleton to wrap a WCSession. Some of the code here is
+ * insprired by https://gist.github.com/NatashaTheRobot/6bcbe79afd7e9572edf6.
+ */
+class ConnectivityHandler : NSObject, WCSessionDelegate {
+    
+    // Keep a reference for the session,
+    // which will be used later for sending / receiving data
+    var session = WCSession.default()
+    
+    // Instantiate the Singleton
+    static let sharedManager = ConnectivityHandler()
+    
+    var messages = String() {
+        // fire KVO-updates for Swift property
+        willSet { willChangeValue(forKey: "messages") }
+        didSet  { didChangeValue(forKey: "messages")  }
+    }
+    var transfered = ClockCalculator()
+    
+    override init() {
+        super.init()
+        self.startSession()
+    }
+    
+    /**
+     * Activate Session
+     * This needs to be called to activate the session before first use!
+     */
+    func startSession() {
+        session.delegate = self
+        session.activate()
+        print("ConnectivityHandler.\(#function): \(session) activated.")
+        print("ConnectivityHandler.\(#function): Paired: \(session.isPaired) / Installed: \(session.isWatchAppInstalled) / Reachable: \(session.isReachable)")
+    }
+    
+    // MARK: - WCSessionDelegate
+    
+    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    @available(iOS 9.3, *)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState,
+                        error: Error?) {
+        print("ConnectivityHandler.\(#function): session '\(session)' received with \(activationState) and \(error).")
+    }
+
+    /** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
+    @available(iOS 9.3, *)
+    public func sessionDidBecomeInactive(_ session: WCSession) {
+        print("ConnectivityHandler.\(#function): session '\(session)' become inactive.")
+    }
+    
+    /** Called when all delegate callbacks for the previously selected watch has occurred. The session can be re-activated for the now selected watch using activateSession. */
+    @available(iOS 9.3, *)
+    public func sessionDidDeactivate(_ session: WCSession) {
+        print("ConnectivityHandler.\(#function): session '\(session)' did deactivate.")
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        print("ConnectivityHandler.\(#function): message '\(message)' received with replyHander \(replyHandler).")
+    }
+    
+    /**
+     * This method will be triggered if the watch part transfers a ClockCalculator
+     * object as userInfo.
+     */
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        print("ConnectivityHandler.\(#function): message '\(message)' received.")
+        let data = message["data"]
+        if (data is String) {
+            let str = data as! String
+            transfered.setData(data: str)
+        }
+        self.messages = "data \(data)"
+    }
+    
+    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+        print("ConnectivityHandler.\(#function): \(applicationContext) received.")
+    }
+    
+    /**
+     * This method will be triggered if the watch part transfers a ClockCalculator
+     * object as userInfo.
+     */
+    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+        print("ConnectivityHandler.\(#function): userInfo '\(userInfo)' received.")
+        let data = userInfo["data"]
+        if (data is String) {
+            let str = data as! String
+            transfered.setData(data: str)
+        }
+        self.messages = "data \(data)"
+    }
+    
+    /**
+     * Versuche mit session.transferUserInfo und session.updateApplicationContext
+     * haben leider nicht funktioniert. Daher greifen wir jetzt auf die
+     * Variante mit session.sendMessage zurueck.
+     * Dummerweise kann man mit session.sendMessage nur einfache Datentypen
+     * wie String verschicken.
+     */
+    func transferDataOf(calculator: ClockCalculator) {
+        print("ConnectivityHander.\(#function): sending data of \(calculator) to watch...")
+        self.session.sendMessage(["data" : calculator.description], replyHandler: nil) { (error) in
+            print("Error sending message: \(error)")
+        }
+        print("ConnectivityHander.\(#function): \(calculator) sended via \(self.session) with complicationEnabled=\(self.session.isComplicationEnabled).")
+    }
+    
+}
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
