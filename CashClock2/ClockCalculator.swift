@@ -96,7 +96,7 @@ class ClockCalculator:NSObject, NSCoding {
 
     func addObserver(_ observer:ClockObserver) -> Int {
         self.observers.append(observer)
-        print("ClockCalculator.\(#function): \(observer) is added as \(observers.count) observer.")
+        print("\(Unmanaged.passUnretained(self))-ClockCalculator.\(#function): \(observer) is added as \(observers.count) observer.")
         return self.observers.count - 1
     }
     

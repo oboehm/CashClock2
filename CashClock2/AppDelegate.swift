@@ -79,15 +79,12 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
         print("ConnectivityHandler.\(#function): session '\(session)' did deactivate.")
     }
     
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        print("ConnectivityHandler.\(#function): message '\(message)' received with replyHander \(replyHandler).")
-    }
-    
     /**
      * This method will be triggered if the watch part transfers a ClockCalculator
      * object as userInfo.
      */
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+    @available(iOS 9.0, *)
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("ConnectivityHandler.\(#function): message '\(message)' received.")
         let data = message["data"]
         if (data is String) {
@@ -97,15 +94,12 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
         self.messages = "data \(data)"
     }
     
-    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        print("ConnectivityHandler.\(#function): \(applicationContext) received.")
-    }
-    
     /**
      * This method will be triggered if the watch part transfers a ClockCalculator
      * object as userInfo.
      */
-    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    @available(iOS 9.0, *)
+    public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
         print("ConnectivityHandler.\(#function): userInfo '\(userInfo)' received.")
         let data = userInfo["data"]
         if (data is String) {
@@ -138,11 +132,15 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var connectivityHandler : ConnectivityHandler?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("AppDelegate.\(#function): \(application) launched.")
+        if (WCSession.isSupported()) {
+            self.connectivityHandler = ConnectivityHandler()
+            print("AppDelegate.\(#function): WCSession supported.")
+        }
         return true
     }
 

@@ -21,6 +21,7 @@
 
 import UIKit
 import iAd
+import WatchConnectivity
 
 class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     
@@ -33,21 +34,15 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     @IBOutlet var displayMoneyLabel: UILabel!
     @IBOutlet var costLabel: UILabel!
     var calculator = ClockCalculator()
-    var state = State.Init
+    var connectivityHandler : ConnectivityHandler?
 
     /**
-    * After the vew is loaded the used ClockCalculator is allocated and set up.
-    * Also we set the property 'delegate' for internal text field
-    * (see "Programmieren fuer iPhone und iPad", p. 279).
-    *
-    * NOTE: For the iAds facility you need internet access. So be sure network
-    * is available if you want to test. Otherwise the iAd banner does not appear!
-    */
+     * After the vew is loaded the used ClockCalculator is allocated and set up.
+     * Also we set the property 'delegate' for internal text field
+     * (see "Programmieren fuer iPhone und iPad", p. 279).
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.canDisplayBannerAds = true
         calculator.load()
         self.populateValues()
         updateNumberOfPersons(calculator.numberOfPersons)
@@ -55,6 +50,10 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let n = calculator.addObserver(self)
         print("ClockViewController.\(#function): \(self) is added as observer \(n).")
         self.registerForApplicationWillTerminate()
+        self.connectivityHandler = (UIApplication.shared.delegate as? AppDelegate)?.connectivityHandler
+        connectivityHandler?.addObserver(self, forKeyPath: "messages", options: NSKeyValueObservingOptions(), context: nil)
+        self.transferDataToWatch()
+        print("ClockViewController.\(#function): iPhone application loaded.")
     }
     
     /**
@@ -114,6 +113,56 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let value = sender.value
         calculator.numberOfPersons = Int(value)
         updateNumberOfPersons(Int(value))
+        transferDataToWatch()
+    }
+    
+    private func transferDataToWatch() {
+        self.connectivityHandler?.transferDataOf(calculator: calculator)
+        print("ClockViewController.\(#function): \(calculator) was transfered to watch.")
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        if let handler = self.connectivityHandler {
+            if (object as AnyObject) === handler {
+                print("ClockViewController.\(#function): \(object) with \(handler.transfered) received.")
+                // see http://stackoverflow.com/questions/28302019/getting-a-this-application-is-modifying-the-autolayout-engine-error
+                DispatchQueue.main.async(execute: {
+                    if (handler.transfered.totalCost > self.calculator.totalCost) {
+                        self.calculator.totalCost = handler.transfered.totalCost
+                        print("ClockViewController.\(#function): total cost of \(self.calculator) updated.")
+                    }
+                    self.updateState(state: handler.transfered.state)
+                    self.updateNumberOfPersons(handler.transfered.numberOfPersons)
+                    self.updateCostPerHour(handler.transfered.costPerHour)
+                })
+            }
+        }
+    }
+
+    private func updateState(state: State) {
+        if (state != calculator.state) {
+            print("ClockViewController.\(#function): State of \(calculator) will be set to \(state)")
+            switch (state) {
+            case .Started:              // "Start" was received
+                calculator.startTimer()
+                self.showStopButton()
+                break
+            case .Continued:            // "Cont'd" was received
+                calculator.continueTimer();
+                self.showStopButton()
+                break;
+            case .Stopped:              // "Stop" was received
+                calculator.stopTimer()
+                self.showContinueButton()
+                break
+            case .Init:
+                calculator.resetTimer()
+                self.resetStartButton()
+                self.update(0, money: 0)
+                break
+            }
+        }
     }
     
     fileprivate func updateNumberOfPersons(_ value: Int) {
@@ -130,38 +179,35 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
     }
 
     /**
-    * Her we start the timer. The code was first written with the help of
-    * http://www.cocoa-coding.de/timer/timer.html and was then transfered
-    * to Swift with the help of
-    * http://rshankar.com/simple-stopwatch-app-in-swift/ .
-    */
+     * Her we start the timer. The code was first written with the help of
+     * http://www.cocoa-coding.de/timer/timer.html and was then transfered
+     * to Swift with the help of
+     * http://rshankar.com/simple-stopwatch-app-in-swift/ .
+     */
     @IBAction func clickStartStop(_ sender: AnyObject) {
-        print("ClockViewController.\(#function): start/stop button pressed in state \(state)")
-        switch (state) {
-        case .Init:                     // "Start" was pressed
+        print("ClockViewController.\(#function): start/stop button pressed in state \(calculator.state)")
+        switch (calculator.state) {
+        case .Init:                 // "Start" was pressed
             calculator.startTimer()
             showStopButton()
             break
-        case .Started, .Continued:      // "Stop" was pressed
+        case .Started, .Continued:  // "Stop" was pressed
             calculator.stopTimer()
-            startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
-                for: UIControlState())
-            startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
-                for: UIControlState())
-            enable(resetButton)
-            state = State.Stopped
+            showContinueButton()
             break;
-        case .Stopped:                  // "continue" / "weiter" was pressed
+        case .Stopped:              // "continue" / "weiter" was pressed
             calculator.continueTimer()
             showStopButton()
             break
         }
+        self.connectivityHandler?.transferDataOf(calculator: self.calculator)
+        transferDataToWatch()
     }
     
     @IBAction func clickReset(_ sender: AnyObject) {
         resetTimer()
         resetStartButton()
-        state = State.Init
+        transferDataToWatch()
     }
     
     func resetTimer() {
@@ -179,7 +225,14 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
             for: UIControlState())
         startStopButton.setTitleColor(UIColor.red, for: UIControlState())
         disable(resetButton)
-        state = State.Started
+    }
+    
+    func showContinueButton() {
+        startStopButton.setTitle(NSLocalizedString("continue", comment:"cont"),
+                                 for: UIControlState.normal)
+        startStopButton.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0),
+                                      for: UIControlState.normal)
+        enable(resetButton)
     }
     
     func disable(_ button: UIButton) {
@@ -211,7 +264,6 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         self.displayMoneyLabel.text = formatter.string(from: NSNumber(value: money))
-        //self.displayMoneyLabel.text = NSString(format: "%4.2f €", money) as String
     }
     
     
@@ -247,6 +299,7 @@ class ClockViewController: UIViewController, UITextViewDelegate, ClockObserver {
         }
         print("ClockViewController.\(#function): Cost per hour is set to \(n).");
         updateCostPerHour(n)
+        transferDataToWatch()
     }
     
     /**
