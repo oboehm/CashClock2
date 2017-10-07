@@ -30,7 +30,7 @@ class ConnectivityHandler : NSObject, WCSessionDelegate {
     
     // Keep a reference for the session,
     // which will be used later for sending / receiving data
-    var session = WCSession.default()
+    var session = WCSession.default
     
     // Instantiate the Singleton
     static let sharedManager = ConnectivityHandler()

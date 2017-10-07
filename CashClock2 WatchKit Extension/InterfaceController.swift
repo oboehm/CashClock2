@@ -19,7 +19,7 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     @IBOutlet weak var personHourLabel: WKInterfaceLabel!
     @IBOutlet var personPicker: WKInterfacePicker!
     var calculator = ClockCalculator()
-    var session = WCSession.default()
+    var session = WCSession.default
 
     @IBAction func menuItemPressed() {
         print("\(Unmanaged.passUnretained(self).toOpaque())-InterfaceController.\(#function): menu item was pressed.")
@@ -127,7 +127,9 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        print("\(Unmanaged.passUnretained(self))-InterfaceController.\(#function): controller is visible.")
+        session.delegate = self
+        session.activate()
+        print("\(Unmanaged.passUnretained(self))-InterfaceController.\(#function): controller is visible, \(session) activated.")
     }
 
     override func didDeactivate() {
@@ -148,10 +150,10 @@ class InterfaceController: WKInterfaceController, ClockObserver, WCSessionDelega
      * to monospaced and the correct locale / currency.
      */
     private func updateElapsedMoney(money:Double) {
-        let systemFont = UIFont.monospacedDigitSystemFont(ofSize: 32, weight: UIFontWeightRegular)
+        let systemFont = UIFont.monospacedDigitSystemFont(ofSize: 32, weight: UIFont.Weight.regular)
         let moneyString = getMoneyFormatted(money: NSNumber(value: money), fractionDigits:2)
         let attributedString = NSAttributedString(string: moneyString,
-                                                  attributes: [NSFontAttributeName: systemFont])
+                                                  attributes: [NSAttributedStringKey.font: systemFont])
         self.moneyLabel.setAttributedText(attributedString)
     }
     

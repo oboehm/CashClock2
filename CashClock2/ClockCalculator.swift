@@ -145,7 +145,7 @@ class ClockCalculator:NSObject, NSCoding {
      * last interval is calculated and with the result the total costs and
      * elapsed time is updated.
      */
-    func updateTimeAndMoney() {
+    @objc func updateTimeAndMoney() {
         currentTime = Date.timeIntervalSinceReferenceDate
         let interval = currentTime - startTime
         assert(interval >= 0, "invalid startTime: \(startTime)")
